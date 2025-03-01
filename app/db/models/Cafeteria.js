@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const cafeteriaMenuSchema = new mongoose.Schema(
   {
-    clerkId: { type: String, required: true, unique: true },
+    clerkId: { type: String, required: true },
     date: { type: Date, required: true },
     meals: [
       {
