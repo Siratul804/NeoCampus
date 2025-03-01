@@ -77,4 +77,6 @@ CLERK_SECRET_KEY=
 
 # ai models
 GROQ_API_KEY=
+
+Start project : node server.mjs
 ```
