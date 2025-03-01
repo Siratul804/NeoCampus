@@ -18,4 +18,6 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
 
 # ai models
 GROQ_API_KEY=
+
+Start project : node server.mjs
 ```
