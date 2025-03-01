@@ -63,3 +63,18 @@
 - 📍 **Live Crowd Tracking** in the cafeteria to avoid long queues.
 - 🔔 **Smart Notifications** for class schedule changes & deadlines.
 - 🌐 **Multilingual Support** for accessibility.
+
+### .env
+
+```
+# database
+MONGO_PASS=oIVOympTPF0RoMLp
+MONGO=mongodb+srv://23201128:oIVOympTPF0RoMLp@neofetch.nq8ec.mongodb.net/?retryWrites=true&w=majority&appName=NeoFetch
+
+# auth
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+
+# ai models
+GROQ_API_KEY=
+```
