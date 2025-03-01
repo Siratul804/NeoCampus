@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# **All-in-One University App** for the **NEOFETCH Hackathon**:
 
-## Getting Started
+### 🚀 **Core Features to Implement**
 
-First, run the development server:
+1️⃣ **Cafeteria Menu & Meal Schedules**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Display real-time daily meal menus with pricing.
+- Add a **pre-ordering system** to save time.
+  2️⃣ **University Bus Routes & Schedules**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Provide **real-time bus tracking** for students.
+- Send **notifications for delays & schedule changes**.
+  3️⃣ **Class Schedules & Faculty Contacts**
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Show **personalized class schedules with reminders**.
+- Track **assignment deadlines & exams** as To-dos.
+  4️⃣ **Event & Club Management**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Display the **university event calendar with RSVPs & reminders**.
+- List **student clubs & activities**.
+- 🔥 **Bonus:** An AI-powered **event recommender** based on student interests.
+  5️⃣ **Campus Navigation & AR Map**
 
-## Learn More
+- Provide **real-time campus maps** to help students find locations.
+- **AR wayfinding:** Allow students to point their camera at a building for location details.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### ⚙️ **Technical Implementation**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+✅ **Platform**: Web (React.js, Next.js) or Mobile (React Native, Flutter).
 
-## Deploy on Vercel
+✅ **Database**: Firebase, MongoDB, MySQL, PostgreSQL.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+✅ **Deployment**: Web (Vercel, Netlify, Firebase) or Mobile (.apk).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+✅ **State Management**: Redux, Zustand, or Riverpod.
+
+✅ **Optional Authentication**: Can be added for user profiles.
+
+---
+
+### 🎯 **Hackathon Scoring Focus**
+
+🎨 **UI/UX (20%)** → Clean, responsive, and user-friendly design.
+
+⚡ **Feature Implementation (40%)** → Ensure core features work smoothly.
+
+💡 **Innovation (10%)** → AI, ML, automation, or accessibility enhancements.
+
+👨‍💻 **Team Collaboration (10%)** → Use GitHub, Trello, or similar tools.
+
+📢 **System Presentation (20%)** → Ensure a stable, well-documented app.
+
+🔥 **Bonus:** Extra 10% for **exceptional AI, security, or accessibility improvements**!
+
+---
+
+### 🏆 **Winning Edge Ideas**
+
+- 🧠 **AI Chatbot** for answering student queries.
+- 🎙️ **Voice Commands** for searching schedules, bus info, etc.
+- 📍 **Live Crowd Tracking** in the cafeteria to avoid long queues.
+- 🔔 **Smart Notifications** for class schedule changes & deadlines.
+- 🌐 **Multilingual Support** for accessibility.
