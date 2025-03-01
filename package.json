@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "name": "neofetch",
+    "version": "0.1.0",
+    "type": "module",
+    "scripts": {
+      "dev": "node server.js"
+    }
   },
   "dependencies": {
     "@clerk/nextjs": "^6.12.1",
@@ -30,6 +32,8 @@
     "react": "^19.0.0",
     "react-day-picker": "^8.10.1",
     "react-dom": "^19.0.0",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7"
   },
