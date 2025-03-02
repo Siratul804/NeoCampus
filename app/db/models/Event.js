@@ -27,4 +27,4 @@ const eventSchema = new mongoose.Schema(
   { timestamps: true }
 );
 export const Event =
-  mongoose.models.Event || mongoose.model("StudentPreference", eventSchema);
+  mongoose.models.Event || mongoose.model("Event", eventSchema);

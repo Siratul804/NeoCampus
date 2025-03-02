@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const studentPreferenceSchema = new mongoose.Schema(
+const eventRecommendSchema = new mongoose.Schema(
   {
     clerkId: { type: String, required: true, unique: true }, // Student's ID
     interests: [{ type: String, required: true }], // Example: ["Tech", "Music", "Sports"]
@@ -9,6 +9,6 @@ const studentPreferenceSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const StudentPreference =
-  mongoose.models.StudentPreference ||
-  mongoose.model("StudentPreference", studentPreferenceSchema);
+export const EventRecommend =
+  mongoose.models.EventRecommend ||
+  mongoose.model("EventRecommend", eventRecommendSchema);
