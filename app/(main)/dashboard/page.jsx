@@ -100,13 +100,13 @@ const dummyEvents = [
 const getPriorityColor = (priority) => {
   switch (priority) {
     case "high":
-      return "bg-red-500 hover:bg-red-600"
+      return "bg-red-100 text-red-900 "
     case "medium":
-      return "bg-yellow-500 hover:bg-yellow-600"
+      return "bg-yellow-100 text-yellow-900 "
     case "low":
-      return "bg-green-500 hover:bg-green-600"
+      return "bg-green-100 text-green-900 "
     default:
-      return "bg-slate-500 hover:bg-slate-600"
+      return "bg-slate-100 text-slate-900"
   }
 }
 
@@ -114,13 +114,13 @@ const getPriorityColor = (priority) => {
 const getStatusColor = (status) => {
   switch (status) {
     case "completed":
-      return "bg-green-500 hover:bg-green-600"
+      return "bg-green-100 text-green-900 "
     case "pending":
-      return "bg-blue-500 hover:bg-blue-600"
+      return "bg-blue-100 text-blue-900 "
     case "overdue":
-      return "bg-red-500 hover:bg-red-600"
+      return "bg-red-100 text-red-900 "
     default:
-      return "bg-slate-500 hover:bg-slate-600"
+      return "bg-slate-100 text-slate-900 "
   }
 }
 
@@ -141,7 +141,7 @@ export default function Dashboard() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
+      
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column - To-Do List and Task Summary */}
@@ -168,12 +168,15 @@ export default function Dashboard() {
                           {getTypeIcon(todo.type)}
                           <h3 className="font-semibold">{todo.title}</h3>
                         </div>
-                        <Badge className={getPriorityColor(todo.priority)}>{todo.priority}</Badge>
+                        <div className="flex space-x-2">
+                          <Badge className={getPriorityColor(todo.priority)}>{todo.priority}</Badge>
+                          <Badge className={getStatusColor(todo.status)}>{todo.status}</Badge>
+                        </div>
                       </div>
                       <p className="text-sm text-muted-foreground">{todo.description}</p>
                       <div className="flex justify-between items-center text-sm">
                         <span className="font-medium">{todo.courseName}</span>
-                        <Badge className={getStatusColor(todo.status)}>{todo.status}</Badge>
+                       
                       </div>
                       <div className="flex items-center text-xs text-muted-foreground">
                         <Clock className="h-3 w-3 mr-1" />
@@ -284,7 +287,7 @@ export default function Dashboard() {
                 mode="single"
                 selected={date}
                 onSelect={(newDate) => newDate && setDate(newDate)}
-                className="rounded-md border mx-auto"
+                className="rounded-md border w-full mx-auto"
               />
             </CardContent>
             <CardFooter className="flex justify-between">
