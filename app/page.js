@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { socket } from "../socket";
+import { SidebarPage } from "@/components/Sidebar";
 
 export default function Home() {
   const [isConnected, setIsConnected] = useState(false);
@@ -47,12 +48,13 @@ export default function Home() {
 
   return (
     <div>
-      <p>Status: {isConnected ? "connected" : "disconnected"}</p>
+      {/* <p>Status: {isConnected ? "connected" : "disconnected"}</p>
       <p>Transport: {transport}</p>
       <button onClick={handleClick} className=" bg-amber-200 rounded ">
         Trigger Notification
       </button>
-      {notification && <p>Notification: {notification}</p>}
+      {notification && <p>Notification: {notification}</p>} */}
+      {/* <SidebarPage/> */}
     </div>
   );
 }
