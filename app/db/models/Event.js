@@ -8,16 +8,6 @@ const eventSchema = new mongoose.Schema(
     time: { type: String, required: true },
     location: { type: String, required: true },
     clerkId: { type: String, required: true, unique: true }, // Creator's ID or Admin ID
-    attendees: [
-      {
-        clerkId: { type: String, required: true, unique: true }, // student's ID
-        status: {
-          type: String,
-          enum: ["Going", "Interested", "Not Going"],
-          default: "Interested",
-        },
-      },
-    ],
     reminders: [
       {
         type: Date,
