@@ -11,5 +11,4 @@ const BuildingSchema = new mongoose.Schema({
 });
 
 export const ArBuilding =
-  mongoose.models.ArBuilding ||
-  mongoose.model("StudentPreference", BuildingSchema);
+  mongoose.models.ArBuilding || mongoose.model("ArBuilding", BuildingSchema);
