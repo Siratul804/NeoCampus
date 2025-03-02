@@ -51,8 +51,8 @@ export function Navbar() {
   const userInitial = username.charAt(0).toUpperCase() || "U";
 
   return (
-    <div className="w-full bg-transparent py-0 mt-4">
-      <nav className="w-full max-w-[138vh] bg-white mx-auto rounded-xl p-3 flex justify-between items-center shadow-sm">
+    <div className="w-full bg-transparent py-0 px-4 mt-4">
+      <nav className="w-full px-8 bg-white mx-auto rounded-xl py-4 flex justify-between items-center shadow-sm">
         {/* Left side - Breadcrumb */}
         <div className="flex items-center gap-2 pl-2">
           <Home className="h-5 w-5 text-slate-500" />
