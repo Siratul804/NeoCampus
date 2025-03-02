@@ -15,7 +15,15 @@ app.prepare().then(() => {
   const io = new Server(httpServer);
 
   io.on("connection", (socket) => {
-    // ...
+    console.log("a user connected");
+
+    socket.on("disconnect", () => {
+      console.log("user disconnected");
+    });
+
+    socket.on("triggerNotification", () => {
+      io.emit("notification", "This is a real-time notification message");
+    });
   });
 
   httpServer
