@@ -2,6 +2,7 @@ import { SidebarPage } from "@/components/Sidebar";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
+import { Navbar } from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,7 +31,7 @@ export default function RootLayout({ children }) {
             <SidebarPage />
             <div className="flex flex-col flex-1 overflow-hidden">
               <main className="flex-1 overflow-y-auto px-4 py-0 ">
-                {/* <Navbar userData={userData} /> */}
+                <Navbar/>
                 {children}
               </main>
             </div>
