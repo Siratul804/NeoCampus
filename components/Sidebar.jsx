@@ -90,7 +90,7 @@ export function SidebarPage() {
     <>
       <div
         className={`
-          ${isExpanded ? "w-64" : "w-16"} 
+          ${isExpanded ? "w-64" : "w-22"} 
           p-4 box-border 
           bg-white border-r 
           h-full flex flex-col transition-all duration-300
@@ -115,10 +115,10 @@ export function SidebarPage() {
           <Button
             variant="ghost"
             size="icon"
-            className="text-xl mt-5"
+            className="text-xl mt-5 ml-3"
             onClick={toggleSidebar}
           >
-            {isExpanded ? <AlignLeft size={25} /> : <AlignJustify size={25} />}
+            {isExpanded ? <AlignLeft size={25} /> : <AlignJustify size={28} />}
           </Button>
         </div>
         <Separator className="mt-4 mb-8" />
@@ -141,7 +141,7 @@ export function SidebarPage() {
                   >
                     <CollapsibleTrigger asChild>
                       <div
-                        className={`flex items-center gap-4 px-4 py-2 cursor-pointer ${
+                        className={`flex items-center gap-4 px-4  py-2 cursor-pointer  ${
                           isActiveParent
                             ? "text-black font-bold"
                             : "text-gray-500 font-bold"
@@ -155,7 +155,7 @@ export function SidebarPage() {
                           {item.icon}
                         </span>
                         <span
-                          className={`${
+                          className={` ${
                             isExpanded ? "block" : "hidden"
                           } flex-1`}
                         >
