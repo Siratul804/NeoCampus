@@ -4,10 +4,17 @@ import { useEffect, useState } from "react";
 import { socket } from "../socket";
 import { SidebarPage } from "@/components/Sidebar";
 
+import { useUser } from "@clerk/nextjs";
+
 export default function Home() {
   const [isConnected, setIsConnected] = useState(false);
   const [transport, setTransport] = useState("N/A");
   const [notification, setNotification] = useState("");
+
+  const { user: clerkUser, isLoaded } = useUser();
+
+  // console.log(clerkUser?.id);
+  // console.log(clerkUser?.imageUrl);
 
   useEffect(() => {
     if (socket.connected) {
