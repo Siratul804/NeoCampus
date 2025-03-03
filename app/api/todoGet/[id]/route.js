@@ -6,7 +6,7 @@ export async function GET(req, { params }) {
   try {
     await connectToDB();
 
-    const { id } = params; // Extract clerkId from URL params
+    const { id } = await params; // Extract clerkId from URL params
 
     console.log("Fetching To-Do tasks for Clerk ID:", id);
 
