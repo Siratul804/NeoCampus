@@ -7,6 +7,7 @@ const cafeteriaMenuSchema = new mongoose.Schema(
     meals: [
       {
         name: { type: String, required: true },
+        image: { type: String, required: true },
         price: { type: Number, required: true },
         nutrition: { type: String },
       },
