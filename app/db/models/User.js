@@ -8,6 +8,8 @@ const userSchema = new mongoose.Schema(
     profilePicture: { type: String, default: "" },
     isAdmin: { type: Boolean, default: false },
     department: { type: String },
+    Section: { type: String },
+    Semester: { type: String },
     notifications: [{ type: String, required: false }],
   },
   { timestamps: true }

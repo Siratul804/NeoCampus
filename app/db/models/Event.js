@@ -7,14 +7,10 @@ const eventSchema = new mongoose.Schema(
     date: { type: Date, required: true },
     time: { type: String, required: true },
     location: { type: String, required: true },
-    clerkId: { type: String, required: true }, // Creator's ID or Admin ID
-    reminders: [
-      {
-        type: Date,
-      },
-    ],
+    reminders: [{ type: Date }], // Array of reminder timestamps
   },
   { timestamps: true }
 );
+
 export const Event =
   mongoose.models.Event || mongoose.model("Event", eventSchema);

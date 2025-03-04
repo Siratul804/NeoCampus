@@ -8,7 +8,7 @@ export async function GET(req, { params }) {
 
     const { id } = await params; // Extract clerkId from URL params
 
-    console.log("Fetching To-Do tasks for Clerk ID:", id);
+    // console.log("Fetching To-Do tasks for Clerk ID:", id);
 
     if (!id) {
       return NextResponse.json(
@@ -27,7 +27,7 @@ export async function GET(req, { params }) {
       );
     }
 
-    console.log("Fetched To-Do tasks:", JSON.stringify(toDoTasks, null, 2));
+    // console.log("Fetched To-Do tasks:", JSON.stringify(toDoTasks, null, 2));
 
     return NextResponse.json({ toDoList: toDoTasks }, { status: 200 });
   } catch (error) {

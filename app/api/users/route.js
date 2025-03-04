@@ -17,8 +17,10 @@ export async function POST(req) {
       email,
       name,
       profilePicture,
-      role,
+      isAdmin,
       department,
+      Section,
+      Semester,
       notifications,
     } = body;
 
@@ -48,8 +50,10 @@ export async function POST(req) {
       email,
       name,
       profilePicture: profilePicture || "",
-      role: role || "student",
+      isAdmin: isAdmin || false,
       department: department || "",
+      Section: Section || "",
+      Semester: Semester || "",
       notifications: notifications || [],
     });
 
