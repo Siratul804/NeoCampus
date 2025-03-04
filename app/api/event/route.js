@@ -4,29 +4,13 @@ import { Event } from "@/app/db/models/Event";
 
 export async function POST(req) {
   try {
-    if (req.method !== "POST") {
-      return NextResponse.json(
-        { error: "Method Not Allowed" },
-        { status: 405 }
-      );
-    }
-
     const body = await req.json();
-    const {
-      title,
-      description,
-      date,
-      time,
-      location,
-      clerkId,
-      attendees,
-      reminders,
-    } = body;
+    const { title, description, date, time, location, reminders } = body;
 
     // Validate required fields
-    if (!title || !date || !time || !location || !clerkId) {
+    if (!title || !date || !time || !location) {
       return NextResponse.json(
-        { error: "Title, date, time, location, and clerkId are required." },
+        { error: "Title, date, time, location are required." },
         { status: 400 }
       );
     }
@@ -34,21 +18,17 @@ export async function POST(req) {
     await connectToDB();
 
     // Create a new event
-    const newEvent = new Event({
+    const newEvent = await Event.create({
       title,
       description: description || "",
       date,
       time,
       location,
-      clerkId,
-      attendees: attendees || [],
-      reminders: reminders || [],
+      reminders: Array.isArray(reminders) ? reminders : [],
     });
 
-    await newEvent.save();
-
     return NextResponse.json(
-      { message: "Event created successfully." },
+      { message: "Event created successfully.", event: newEvent },
       { status: 201 }
     );
   } catch (error) {
@@ -59,19 +39,3 @@ export async function POST(req) {
     );
   }
 }
-
-// Fetch all events
-
-// export async function GET() {
-//   try {
-//     await connectToDB();
-//     const events = await Event.find({});
-//     return NextResponse.json(events, { status: 200 });
-//   } catch (error) {
-//     console.error("Error fetching events:", error);
-//     return NextResponse.json(
-//       { error: "An internal server error occurred." },
-//       { status: 500 }
-//     );
-//   }
-// }
