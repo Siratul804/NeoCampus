@@ -2,8 +2,14 @@
 
 import { useUser } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
-import { format, addDays, subDays } from "date-fns";
-import { CalendarIcon, Clock, BookOpen, AlertTriangle } from "lucide-react";
+import { addDays, subDays, format } from "date-fns";
+import {
+  CalendarIcon,
+  Clock,
+  BookOpen,
+  AlertTriangle,
+  Trash,
+} from "lucide-react";
 
 import {
   Card,
@@ -13,11 +19,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
+import TodoModal from "@/app/components/TodoModal";
 
 // Helper function to get priority badge color
 const getPriorityColor = (priority) => {
@@ -126,9 +134,15 @@ export default function Dashboard() {
             <CardContent>
               <Tabs defaultValue="all">
                 <TabsList className="grid w-full grid-cols-3 mb-4">
-                  <TabsTrigger value="all">All</TabsTrigger>
-                  <TabsTrigger value="assignments">Assignments</TabsTrigger>
-                  <TabsTrigger value="exams">Exams</TabsTrigger>
+                  <TabsTrigger value="all" className="cursor-pointer">
+                    All
+                  </TabsTrigger>
+                  <TabsTrigger value="assignments" className="cursor-pointer">
+                    Assignments
+                  </TabsTrigger>
+                  <TabsTrigger value="exams" className="cursor-pointer">
+                    Exams
+                  </TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="all" className="space-y-4">
@@ -150,6 +164,13 @@ export default function Dashboard() {
                             <Badge className={getStatusColor(todo.status)}>
                               {todo.status}
                             </Badge>
+                            <Button
+                              variant="destructive"
+                              size="sm"
+                              className="h-6 px-2 cursor-pointer"
+                            >
+                              <Trash className="h-3.5 w-3.5" />
+                            </Button>
                           </div>
                         </div>
                         <p className="text-sm text-muted-foreground">
@@ -239,7 +260,7 @@ export default function Dashboard() {
               </Tabs>
             </CardContent>
             <CardFooter>
-              <Button className="w-full">Add New Task</Button>
+              <TodoModal />
             </CardFooter>
           </Card>
 
