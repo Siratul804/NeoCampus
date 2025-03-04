@@ -24,16 +24,6 @@ export async function POST(req) {
 
     await connectToDB();
 
-    // Check if a pre-order with the same clerkId or mealId already exists
-    // const existingOrder = await PreOrder.findOne({ $or: [{ clerkId }, { mealId }] });
-
-    // if (existingOrder) {
-    //   return NextResponse.json(
-    //     { error: "Pre-order already exists for this clerkId or mealId." },
-    //     { status: 409 }
-    //   );
-    // }
-
     // Create new pre-order
     const newOrder = new PreOrder({
       clerkId,

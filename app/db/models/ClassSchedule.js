@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const classScheduleSchema = new mongoose.Schema(
   {
-    clerkId: { type: String, required: true, unique: true },
+    clerkId: { type: String, required: true },
     courseName: { type: String, required: true },
     courseCode: { type: String, required: true },
     faculty: { type: String, required: true, unique: true }, // need to create dummy faculty json data

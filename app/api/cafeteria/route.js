@@ -23,16 +23,6 @@ export async function POST(req) {
 
     await connectToDB();
 
-    // Check if a cafeteria entry with the same clerkId already exists
-    const existingEntry = await CafeteriaMenu.findOne({ clerkId });
-
-    if (existingEntry) {
-      return NextResponse.json(
-        { error: "Cafeteria entry for this clerkId already exists." },
-        { status: 409 }
-      );
-    }
-
     // Create a new cafeteria entry
     const newEntry = new CafeteriaMenu({ clerkId, date, meals });
 

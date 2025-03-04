@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const eventRecommendSchema = new mongoose.Schema(
   {
-    clerkId: { type: String, required: true, unique: true }, // Student's ID
+    clerkId: { type: String, required: true }, // Student's ID
     interests: [{ type: String, required: true }], // Example: ["Tech", "Music", "Sports"]
     recommendedEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }],
   },

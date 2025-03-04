@@ -40,16 +40,6 @@ export async function POST(req) {
 
     await connectToDB();
 
-    // Check if a bus schedule already exists with the same clerkId
-    const existingSchedule = await BusSchedule.findOne({ clerkId });
-
-    if (existingSchedule) {
-      return NextResponse.json(
-        { error: "Bus schedule already exists for this clerkId." },
-        { status: 409 }
-      );
-    }
-
     // Create a new bus schedule
     const newSchedule = new BusSchedule({
       clerkId,
