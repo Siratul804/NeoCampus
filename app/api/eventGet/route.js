@@ -15,7 +15,7 @@ export async function GET() {
       );
     }
 
-    console.log("Fetched Events:", JSON.stringify(events, null, 2));
+    // console.log("Fetched Events:", JSON.stringify(events, null, 2));
 
     return NextResponse.json({ events }, { status: 200 });
   } catch (error) {

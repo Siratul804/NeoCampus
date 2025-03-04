@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import { useState, useEffect } from "react";
 import { format, addDays, subDays } from "date-fns";
 import { CalendarIcon, Clock, BookOpen, AlertTriangle } from "lucide-react";
 
@@ -17,92 +18,6 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-
-// Dummy data for demo purposes
-const dummyTodos = [
-  {
-    id: 1,
-    type: "assignment",
-    title: "Research Paper",
-    description: "Complete 5-page research paper on renewable energy",
-    courseName: "Environmental Science",
-    dueDate: new Date("2025-03-15"),
-    status: "pending",
-    priority: "high",
-  },
-  {
-    id: 2,
-    type: "exam",
-    title: "Midterm Exam",
-    description: "Chapters 1-5 will be covered",
-    courseName: "Calculus II",
-    dueDate: new Date("2025-03-10"),
-    status: "pending",
-    priority: "high",
-  },
-  {
-    id: 3,
-    type: "assignment",
-    title: "Lab Report",
-    description: "Write up results from last week's experiment",
-    courseName: "Chemistry",
-    dueDate: new Date("2025-03-08"),
-    status: "pending",
-    priority: "medium",
-  },
-  {
-    id: 4,
-    type: "assignment",
-    title: "Group Presentation",
-    description: "Prepare slides for group presentation",
-    courseName: "Business Communication",
-    dueDate: new Date("2025-03-20"),
-    status: "pending",
-    priority: "medium",
-  },
-  {
-    id: 5,
-    type: "exam",
-    title: "Quiz",
-    description: "Short quiz on recent material",
-    courseName: "Psychology 101",
-    dueDate: new Date("2025-03-05"),
-    status: "completed",
-    priority: "low",
-  },
-];
-
-const dummyEvents = [
-  {
-    id: 1,
-    title: "Book Fair",
-    date: "2025-03-05",
-    time: "09:00 - 16:00",
-    description: "Browse and purchase books at our annual school Book Fair.",
-  },
-  {
-    id: 2,
-    title: "Sports Day",
-    date: "2025-03-10",
-    time: "10:00 - 15:00",
-    description: "A fun-filled day of athletic events and team competitions.",
-  },
-  {
-    id: 3,
-    title: "Art Exhibition",
-    date: "2025-03-15",
-    time: "13:00 - 17:00",
-    description: "Display your artwork for the school community to admire.",
-  },
-  {
-    id: 4,
-    title: "Career Fair",
-    date: "2025-03-20",
-    time: "11:00 - 14:00",
-    description:
-      "Meet representatives from various industries and universities.",
-  },
-];
 
 // Helper function to get priority badge color
 const getPriorityColor = (priority) => {
@@ -146,6 +61,54 @@ const getTypeIcon = (type) => {
 
 export default function Dashboard() {
   const [date, setDate] = useState(new Date());
+  const [todoData, setTodoData] = useState([]); // Initialize as an empty array
+  const [eventData, setEventData] = useState([]); // Initialize as an empty array
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (!user?.id) return;
+
+    const fetchTodoData = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(`/api/todoGet/${user.id}`);
+        if (!response.ok) throw new Error("Todo data not found");
+
+        const data = await response.json();
+        setTodoData(data.toDoList || []); // Extract `toDoList` from the response
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTodoData();
+  }, [user?.id]);
+
+  useEffect(() => {
+    const fetchEventData = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(`/api/eventGet`);
+        if (!response.ok) throw new Error("Event data not found");
+
+        const data = await response.json();
+        setEventData(data.events || []); // Extract `events` from the response
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEventData();
+  }, []);
+
+  if (loading) return <>Loading.....</>;
 
   return (
     <div className="container mx-auto p-4">
@@ -169,45 +132,49 @@ export default function Dashboard() {
                 </TabsList>
 
                 <TabsContent value="all" className="space-y-4">
-                  {dummyTodos.map((todo) => (
-                    <div
-                      key={todo.id}
-                      className="flex flex-col space-y-2 p-3 rounded-lg border"
-                    >
-                      <div className="flex justify-between items-start">
-                        <div className="flex items-center">
-                          {getTypeIcon(todo.type)}
-                          <h3 className="font-semibold">{todo.title}</h3>
+                  {todoData.length > 0 ? (
+                    todoData.map((todo) => (
+                      <div
+                        key={todo._id}
+                        className="flex flex-col space-y-2 p-3 rounded-lg border"
+                      >
+                        <div className="flex justify-between items-start">
+                          <div className="flex items-center">
+                            {getTypeIcon(todo.type)}
+                            <h3 className="font-semibold">{todo.title}</h3>
+                          </div>
+                          <div className="flex space-x-2">
+                            <Badge className={getPriorityColor(todo.priority)}>
+                              {todo.priority}
+                            </Badge>
+                            <Badge className={getStatusColor(todo.status)}>
+                              {todo.status}
+                            </Badge>
+                          </div>
                         </div>
-                        <div className="flex space-x-2">
-                          <Badge className={getPriorityColor(todo.priority)}>
-                            {todo.priority}
-                          </Badge>
-                          <Badge className={getStatusColor(todo.status)}>
-                            {todo.status}
-                          </Badge>
+                        <p className="text-sm text-muted-foreground">
+                          {todo.description}
+                        </p>
+                        <div className="flex justify-between items-center text-sm">
+                          <span className="font-medium">{todo.courseName}</span>
+                        </div>
+                        <div className="flex items-center text-xs text-muted-foreground">
+                          <Clock className="h-3 w-3 mr-1" />
+                          Due: {format(todo.dueDate, "MMM dd, yyyy")}
                         </div>
                       </div>
-                      <p className="text-sm text-muted-foreground">
-                        {todo.description}
-                      </p>
-                      <div className="flex justify-between items-center text-sm">
-                        <span className="font-medium">{todo.courseName}</span>
-                      </div>
-                      <div className="flex items-center text-xs text-muted-foreground">
-                        <Clock className="h-3 w-3 mr-1" />
-                        Due: {format(todo.dueDate, "MMM dd, yyyy")}
-                      </div>
-                    </div>
-                  ))}
+                    ))
+                  ) : (
+                    <p>No tasks found.</p>
+                  )}
                 </TabsContent>
 
                 <TabsContent value="assignments" className="space-y-4">
-                  {dummyTodos
+                  {todoData
                     .filter((todo) => todo.type === "assignment")
                     .map((todo) => (
                       <div
-                        key={todo.id}
+                        key={todo._id}
                         className="flex flex-col space-y-2 p-3 rounded-lg border"
                       >
                         <div className="flex justify-between items-start">
@@ -237,11 +204,11 @@ export default function Dashboard() {
                 </TabsContent>
 
                 <TabsContent value="exams" className="space-y-4">
-                  {dummyTodos
+                  {todoData
                     .filter((todo) => todo.type === "exam")
                     .map((todo) => (
                       <div
-                        key={todo.id}
+                        key={todo._id}
                         className="flex flex-col space-y-2 p-3 rounded-lg border"
                       >
                         <div className="flex justify-between items-start">
@@ -287,7 +254,7 @@ export default function Dashboard() {
                   <span>Pending Tasks</span>
                   <Badge variant="outline" className="font-bold">
                     {
-                      dummyTodos.filter((todo) => todo.status === "pending")
+                      todoData.filter((todo) => todo.status === "pending")
                         .length
                     }
                   </Badge>
@@ -297,7 +264,7 @@ export default function Dashboard() {
                   <span>Completed Tasks</span>
                   <Badge variant="outline" className="font-bold">
                     {
-                      dummyTodos.filter((todo) => todo.status === "completed")
+                      todoData.filter((todo) => todo.status === "completed")
                         .length
                     }
                   </Badge>
@@ -306,10 +273,7 @@ export default function Dashboard() {
                 <div className="flex justify-between items-center">
                   <span>High Priority</span>
                   <Badge variant="outline" className="font-bold">
-                    {
-                      dummyTodos.filter((todo) => todo.priority === "high")
-                        .length
-                    }
+                    {todoData.filter((todo) => todo.priority === "high").length}
                   </Badge>
                 </div>
               </div>
@@ -366,25 +330,29 @@ export default function Dashboard() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {dummyEvents.map((event) => (
-                  <div
-                    key={event.id}
-                    className="flex flex-col space-y-2 p-3 rounded-lg border"
-                  >
-                    <div className="flex justify-between items-start">
-                      <h3 className="font-semibold text-lg">{event.title}</h3>
-                      <Badge variant="secondary">
-                        <CalendarIcon className="h-3 w-3 mr-1" />
-                        {event.date}
-                      </Badge>
+                {eventData.length > 0 ? (
+                  eventData.map((event, index) => (
+                    <div
+                      key={event._id || `event-${index}`}
+                      className="flex flex-col space-y-2 p-3 rounded-lg border"
+                    >
+                      <div className="flex justify-between items-start">
+                        <h3 className="font-semibold text-lg">{event.title}</h3>
+                        <Badge variant="secondary">
+                          <CalendarIcon className="h-3 w-3 mr-1" />
+                          {event.date}
+                        </Badge>
+                      </div>
+                      <div className="flex items-center text-sm text-muted-foreground">
+                        <Clock className="h-3 w-3 mr-1" />
+                        {event.time}
+                      </div>
+                      <p className="text-sm">{event.description}</p>
                     </div>
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <Clock className="h-3 w-3 mr-1" />
-                      {event.time}
-                    </div>
-                    <p className="text-sm">{event.description}</p>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <p>No events found.</p>
+                )}
               </div>
             </CardContent>
           </Card>
