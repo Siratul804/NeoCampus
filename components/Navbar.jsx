@@ -85,6 +85,7 @@ export function Navbar() {
                 },
               }}
               afterSignOutUrl="/sign-in"
+              afterSignInUrl="/dashboard"
             />
           </SignedIn>
         </div>

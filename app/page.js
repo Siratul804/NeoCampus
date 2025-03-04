@@ -5,6 +5,7 @@ import { socket } from "../socket";
 import { SidebarPage } from "@/components/Sidebar";
 
 import { useUser } from "@clerk/nextjs";
+import Dashboard from "./(main)/dashboard/page";
 
 export default function Home() {
   const [isConnected, setIsConnected] = useState(false);
@@ -62,6 +63,7 @@ export default function Home() {
       </button>
       {notification && <p>Notification: {notification}</p>} */}
       {/* <SidebarPage/> */}
+      <Dashboard/>
     </div>
   );
 }
