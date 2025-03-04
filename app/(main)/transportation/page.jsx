@@ -1,61 +1,55 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Map, Marker } from "pigeon-maps"
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { busRoutes } from "@/data/BusData"
-import { Search, Bus, Clock, MapPin, Info } from "lucide-react"
+import { useState } from "react";
+import { Map, Marker } from "pigeon-maps";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { busRoutes } from "@/data/BusData";
+import { Search, Bus, Clock, MapPin, Info } from "lucide-react";
 
 const TransportationPage = () => {
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState("");
 
- 
-  const filteredRoutes = busRoutes
+  const filteredRoutes = busRoutes.filter(
+    (route) =>
+      route.roadNumber.toString().includes(searchTerm) ||
+      route.startLocation.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      route.endLocation.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      route.currentLocation.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      route.stops.some((stop) =>
+        stop.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+  );
 
   // Function to determine delay badge color
   const getDelayBadgeColor = (delay) => {
-    if (delay.includes("On time")) return "bg-green-500 hover:bg-green-600"
-    if (delay.includes("5 min")) return "bg-yellow-500 hover:bg-yellow-600"
-    return "bg-red-500 hover:bg-red-600"
-  }
+    if (delay.includes("On time")) return "bg-green-500 hover:bg-green-600";
+    if (delay.includes("5 min")) return "bg-yellow-500 hover:bg-yellow-600";
+    return "bg-red-500 hover:bg-red-600";
+  };
 
   return (
     <div className="container mx-auto p-4 space-y-8 max-w-7xl">
-     
-
       {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Panel - Map and Search */}
         <div className="lg:col-span-2 space-y-4">
-          {/* Search Bar */}
-          <div className="relative ">
-            <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-            <Input
-              placeholder="Search routes, stops or locations..."
-              className="pl-10 h-12 bg-white rounded-lg shadow-sm border-muted focus-visible:ring-2 focus-visible:ring-offset-0"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold">Bus Schedule & Routes</h2>
           </div>
 
-          {/* Map Card */}
-          {/* <Card className="overflow-hidden border-none shadow-lg">
-            <CardContent className="p-0"> */}
-              <Map
-                height={500}
-                defaultCenter={[23.8103, 90.4125]}
-                defaultZoom={13}
-                attribution={false}
-                className="w-full rounded-lg border"
-              >
-                <Marker width={50} anchor={[23.8103, 90.4125]} />
-              </Map>
-            {/* </CardContent>
-          </Card> */}
+          <Map
+            height={500}
+            defaultCenter={[23.8103, 90.4125]}
+            defaultZoom={13}
+            attribution={false}
+            className="w-full rounded-lg border"
+          >
+            <Marker width={50} anchor={[23.8103, 90.4125]} />
+          </Map>
 
           {/* Map Legend - Static UI element */}
           <div className="flex flex-wrap gap-4 text-sm">
@@ -77,18 +71,23 @@ const TransportationPage = () => {
         {/* Right Panel - Bus Routes */}
         <div className="space-y-4">
           <Tabs defaultValue="all">
-            <div className="flex justify-between items-center mb-2">
-              <h2 className="text-xl font-semibold">Bus Schedule & Routes</h2>
-              {/* <TabsList>
-                <TabsTrigger value="all">All Routes</TabsTrigger>
-                <TabsTrigger value="favorites">Favorites</TabsTrigger>
-              </TabsList> */}
+            <div className="relative ">
+              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search routes, stops or locations..."
+                className="pl-10 h-12 bg-white rounded-lg shadow-sm border-muted focus-visible:ring-2 focus-visible:ring-offset-0"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
             </div>
 
             <TabsContent value="all" className="m-0">
               <div className="space-y-3 overflow-y-auto pr-1 max-h-[600px] custom-scrollbar">
                 {filteredRoutes.map((route) => (
-                  <Card key={route.id} className="shadow-sm hover:shadow-md transition-shadow">
+                  <Card
+                    key={route.id}
+                    className="shadow-sm hover:shadow-md transition-shadow"
+                  >
                     <CardHeader className="pb-2">
                       <div className="flex justify-between items-start">
                         <div>
@@ -99,20 +98,28 @@ const TransportationPage = () => {
                             {route.startLocation} → {route.endLocation}
                           </CardTitle>
                         </div>
-                        <Badge className={getDelayBadgeColor(route.delayInfo)}>{route.delayInfo}</Badge>
+                        <Badge className={getDelayBadgeColor(route.delayInfo)}>
+                          {route.delayInfo}
+                        </Badge>
                       </div>
                     </CardHeader>
                     <CardContent className="pt-0">
                       <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
                         <div className="flex items-center gap-2">
                           <Bus className="h-4 w-4 text-muted-foreground" />
-                          <span className="text-muted-foreground">Current:</span>
+                          <span className="text-muted-foreground">
+                            Current:
+                          </span>
                         </div>
-                        <div className="font-medium">{route.currentLocation}</div>
+                        <div className="font-medium">
+                          {route.currentLocation}
+                        </div>
 
                         <div className="flex items-center gap-2">
                           <Clock className="h-4 w-4 text-muted-foreground" />
-                          <span className="text-muted-foreground">Departure:</span>
+                          <span className="text-muted-foreground">
+                            Departure:
+                          </span>
                         </div>
                         <div className="font-medium">{route.departureTime}</div>
                       </div>
@@ -123,14 +130,16 @@ const TransportationPage = () => {
                         </div>
                         <div className="flex flex-wrap gap-1">
                           {route.stops.map((stop, index) => (
-                            <Badge key={index} variant="secondary" className="text-xs">
+                            <Badge
+                              key={index}
+                              variant="secondary"
+                              className="text-xs"
+                            >
                               {stop}
                             </Badge>
                           ))}
                         </div>
                       </div>
-
-                      
                     </CardContent>
                   </Card>
                 ))}
@@ -150,8 +159,7 @@ const TransportationPage = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TransportationPage
-
+export default TransportationPage;
