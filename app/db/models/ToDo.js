@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const toDoSchema = new mongoose.Schema(
   {
-    clerkId: { type: String, required: true, unique: true }, // Student's ID
+    clerkId: { type: String, required: true }, // Student's ID
     type: { type: String, enum: ["assignment", "exam"], required: true },
     title: { type: String, required: true }, // Assignment title or Exam subject
     description: { type: String }, // Additional details
