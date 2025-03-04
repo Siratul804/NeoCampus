@@ -1,17 +1,22 @@
-"use client"
+"use client";
+import { useUser } from "@clerk/nextjs";
+import { useState, useEffect } from "react";
+import {
+  CalendarIcon,
+  Users,
+  ChevronLeft,
+  ChevronRight,
+  Search,
+} from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
-import { useState } from "react"
-import { CalendarIcon, Clock, Users, ChevronLeft, ChevronRight, Search } from "lucide-react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Switch } from "@/components/ui/switch"
-import { Label } from "@/components/ui/label"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Calendar } from "@/components/ui/calendar"
-import { cn } from "@/lib/utils"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Calendar } from "@/components/ui/calendar";
+import UserInfoFill from "@/app/components/UserInfoFill";
 
 // Reduced schedule data
 const scheduleData = {
@@ -24,7 +29,6 @@ const scheduleData = {
       day: 0,
       startTime: "8:00 AM",
       endTime: "8:45 AM",
-      class: "4A",
       subject: "Physics",
       color: "bg-blue-50 border-blue-200 ",
     },
@@ -33,7 +37,6 @@ const scheduleData = {
       day: 2,
       startTime: "8:00 AM",
       endTime: "8:45 AM",
-      class: "1A",
       subject: "Chemistry",
       color: "bg-blue-50 border-blue-200 ",
     },
@@ -42,7 +45,6 @@ const scheduleData = {
       day: 0,
       startTime: "9:00 AM",
       endTime: "9:45 AM",
-      class: "3B",
       subject: "Physics",
       color: "bg-amber-50 border-amber-200 ",
     },
@@ -51,7 +53,6 @@ const scheduleData = {
       day: 1,
       startTime: "9:00 AM",
       endTime: "9:45 AM",
-      class: "2B",
       subject: "Physics",
       color: "bg-amber-50 border-amber-200 ",
     },
@@ -60,7 +61,6 @@ const scheduleData = {
       day: 0,
       startTime: "10:00 AM",
       endTime: "10:45 AM",
-      class: "2B",
       subject: "Math",
       color: "bg-purple-50 border-purple-200",
     },
@@ -69,12 +69,11 @@ const scheduleData = {
       day: 3,
       startTime: "10:00 AM",
       endTime: "10:45 AM",
-      class: "6B",
       subject: "Chemistry",
       color: "bg-blue-50 border-blue-200 ",
     },
   ],
-}
+};
 
 // Reduced faculty data
 const facultyData = [
@@ -100,27 +99,59 @@ const facultyData = [
     office: "Science Building, Room 210",
     avatar: "/placeholder.svg?height=80&width=80",
   },
-]
+];
 
 export default function ClassesPage() {
-  const [view, setView] = useState("schedule")
-  const [currentWeek, setCurrentWeek] = useState(scheduleData.weekRange)
-  const [searchTerm, setSearchTerm] = useState("")
-  const [date, setDate] = useState(new Date())
-  const [reminderEnabled, setReminderEnabled] = useState(false)
-  const [selectedReminderTime, setSelectedReminderTime] = useState("5 minutes")
+  const [view, setView] = useState("schedule");
+  const [currentWeek, setCurrentWeek] = useState(scheduleData.weekRange);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [userData, setUserData] = useState(null);
+
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (!user?.id) return;
+
+    const fetchUserData = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(`/api/userGet/${user.id}`);
+        if (!response.ok) throw new Error("Todo data not found");
+
+        const data = await response.json();
+
+        setUserData(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [user?.id]);
+
+  // console.log(userData.Semester);
+
+  if (!userData?.Semester || !userData?.Section || !userData?.Section)
+    return <UserInfoFill clerkId={user?.id} />;
 
   // Filter faculty based on search term
   const filteredFaculty = facultyData.filter(
     (faculty) =>
       faculty.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      faculty.department.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+      faculty.department.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   // Get classes for a specific time and day
   const getClassesForTimeAndDay = (time, day) => {
-    return scheduleData.classes.filter((cls) => cls.startTime === time && cls.day === day)
-  }
+    return scheduleData.classes.filter(
+      (cls) => cls.startTime === time && cls.day === day
+    );
+  };
 
   // Weekly Schedule Component
   function WeeklySchedule() {
@@ -151,23 +182,26 @@ export default function ClassesPage() {
             <tbody>
               {scheduleData.timeSlots.map((time, timeIndex) => (
                 <tr key={timeIndex}>
-                  <td className="p-4 font-medium text-sm text-muted-foreground">{time}</td>
+                  <td className="p-4 font-medium text-sm text-muted-foreground">
+                    {time}
+                  </td>
                   {scheduleData.days.map((_, dayIndex) => {
-                    const classes = getClassesForTimeAndDay(time, dayIndex)
+                    const classes = getClassesForTimeAndDay(time, dayIndex);
                     return (
                       <td key={dayIndex} className="p-2 min-h-24 align-top">
                         {classes.map((cls) => (
-                          <div key={cls.id} className={`p-3 rounded-md border ${cls.color} mb-2`}>
+                          <div
+                            key={cls.id}
+                            className={`p-3 rounded-md border ${cls.color} mb-2`}
+                          >
                             <div className="text-xs opacity-75">
                               {cls.startTime} – {cls.endTime}
                             </div>
-                            <div className="font-medium">
-                              {cls.class} - {cls.subject}
-                            </div>
+                            <div className="font-medium">{cls.subject}</div>
                           </div>
                         ))}
                       </td>
-                    )
+                    );
                   })}
                 </tr>
               ))}
@@ -175,7 +209,7 @@ export default function ClassesPage() {
           </table>
         </div>
       </div>
-    )
+    );
   }
 
   // Faculty Directory Component
@@ -218,27 +252,20 @@ export default function ClassesPage() {
           ))}
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="min-h-screen py-6 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="flex gap-3 mb-6">
-          <Button variant="outline" size="sm" className="rounded-full">
-            <Clock className="h-4 w-4 mr-2" />
-            Daily
-          </Button>
-          <Button variant="outline" size="sm" className="rounded-full">
-            <CalendarIcon className="h-4 w-4 mr-2" />
-            Weekly
-          </Button>
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Left Column - 8 cols (Schedule/Faculty) */}
           <div className="lg:col-span-8">
-            <Tabs defaultValue="schedule" className="w-full" onValueChange={setView}>
+            <Tabs
+              defaultValue="schedule"
+              className="w-full"
+              onValueChange={setView}
+            >
               <TabsList className="grid w-full grid-cols-2 mb-6">
                 <TabsTrigger value="schedule" className="rounded-l-lg">
                   <CalendarIcon className="h-4 w-4 mr-2" />
@@ -267,51 +294,26 @@ export default function ClassesPage() {
                 <CardTitle>Calendar</CardTitle>
               </CardHeader>
               <CardContent>
-                <Calendar mode="single" selected={date} onSelect={setDate} className="rounded-md border" />
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={setDate}
+                  className="rounded-md border"
+                />
               </CardContent>
             </Card>
 
             <Card>
-              <CardHeader>
+              <CardHeader className="h-full">
                 <CardTitle>Reminders</CardTitle>
-                <CardDescription>Get notified before your classes</CardDescription>
+                <CardTitle className="text-blue-500 py-3 ">
+                  * Class will start soon
+                </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <Label htmlFor="reminder-toggle" className="text-base font-medium">
-                      Enable Reminders
-                    </Label>
-                    <p className="text-sm text-muted-foreground">Receive notifications</p>
-                  </div>
-                  <Switch id="reminder-toggle" checked={reminderEnabled} onCheckedChange={setReminderEnabled} />
-                </div>
-
-                <div className={reminderEnabled ? "opacity-100" : "opacity-50 pointer-events-none"}>
-                  <Label className="mb-3 block text-base font-medium">Reminder Time</Label>
-                  <div className="grid grid-cols-3 gap-2">
-                    {["5 minutes", "10 minutes", "15 minutes"].map((time) => (
-                      <Button
-                        key={time}
-                        variant="outline"
-                        size="sm"
-                        className={cn(
-                          "rounded-full",
-                          selectedReminderTime === time && "bg-primary text-primary-foreground",
-                        )}
-                        onClick={() => setSelectedReminderTime(time)}
-                      >
-                        {time}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
             </Card>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
-

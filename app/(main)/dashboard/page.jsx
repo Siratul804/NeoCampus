@@ -3,13 +3,7 @@
 import { useUser } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
 import { addDays, subDays, format } from "date-fns";
-import {
-  CalendarIcon,
-  Clock,
-  BookOpen,
-  AlertTriangle,
-  Trash,
-} from "lucide-react";
+import { CalendarIcon, Clock, BookOpen, AlertTriangle } from "lucide-react";
 
 import {
   Card,
@@ -27,6 +21,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import TodoModal from "@/app/components/TodoModal";
 import DeleteEvent from "@/app/components/DeleteEvent";
+import Link from "next/link";
 
 // Helper function to get priority badge color
 const getPriorityColor = (priority) => {
@@ -346,9 +341,11 @@ export default function Dashboard() {
                   Stay updated with campus activities
                 </CardDescription>
               </div>
-              <Button variant="outline" size="sm">
-                View All
-              </Button>
+              <Link href="/events-clubs" variant="outline" size="sm">
+                <Button variant="outline" size="sm">
+                  View All
+                </Button>
+              </Link>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
