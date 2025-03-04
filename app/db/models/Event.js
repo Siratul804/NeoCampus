@@ -7,7 +7,7 @@ const eventSchema = new mongoose.Schema(
     date: { type: Date, required: true },
     time: { type: String, required: true },
     location: { type: String, required: true },
-    clerkId: { type: String, required: true, unique: true }, // Creator's ID or Admin ID
+    clerkId: { type: String, required: true }, // Creator's ID or Admin ID
     reminders: [
       {
         type: Date,

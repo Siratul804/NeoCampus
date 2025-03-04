@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const busScheduleSchema = new mongoose.Schema(
   {
-    clerkId: { type: String, required: true, unique: true },
+    clerkId: { type: String, required: true },
     routeNumber: { type: String, required: true },
     startLocation: { type: String, required: true },
     endLocation: { type: String, required: true },
