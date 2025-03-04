@@ -26,6 +26,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import TodoModal from "@/app/components/TodoModal";
+import DeleteEvent from "@/app/components/DeleteEvent";
 
 // Helper function to get priority badge color
 const getPriorityColor = (priority) => {
@@ -167,9 +168,9 @@ export default function Dashboard() {
                             <Button
                               variant="destructive"
                               size="sm"
-                              className="h-6 px-2 cursor-pointer"
+                              className="h-6 px-2 "
                             >
-                              <Trash className="h-3.5 w-3.5" />
+                              <DeleteEvent todo_id={todo._id} />
                             </Button>
                           </div>
                         </div>
