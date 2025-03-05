@@ -36,15 +36,14 @@ const TransportationPage = () => {
       {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Panel - Map and Search */}
-        <div className="lg:col-span-2 space-y-4">
-          <Card className="overflow-hidden border-none shadow-lg">
-            <CardHeader className="">
-              <div className="flex justify-between items-center mb-0">
-                <h2 className="text-xl font-semibold">Bus Schedule & Routes</h2>
-              </div>
-            </CardHeader>
+        <div className="lg:col-span-2 ">
+          <div className="bg-white p-4 ">
+            <h2 className="text-lg font-semibold py-2 ">
+              Bus Schedule & Routes
+            </h2>
+
             <CardContent className="p-0">
-              <div className="w-full h-[calc(100vh-220px)] rounded-lg overflow-hidden border">
+              <div className="w-full  overflow-hidden ">
                 <Map
                   width={800}
                   height={500}
@@ -56,22 +55,22 @@ const TransportationPage = () => {
                   <Marker width={50} anchor={[23.8103, 90.4125]} />
                 </Map>
               </div>
-              <div className="flex flex-wrap gap-4 text-sm pl-4 pt-4">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-green-500"></div>
-              <span>On Time</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-              <span>Slight Delay</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-500"></div>
-              <span>Significant Delay</span>
-            </div>
-          </div>
+              <div className="flex flex-wrap gap-4 text-sm pt-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  <span>On Time</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <span>Slight Delay</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                  <span>Significant Delay</span>
+                </div>
+              </div>
             </CardContent>
-          </Card>
+          </div>
 
           {/* <Map
             height={500}
@@ -84,7 +83,6 @@ const TransportationPage = () => {
           </Map> */}
 
           {/* Map Legend - Static UI element */}
-          
         </div>
 
         {/* Right Panel - Bus Routes */}
@@ -101,7 +99,7 @@ const TransportationPage = () => {
             </div>
 
             <TabsContent value="all" className="m-0">
-              <div className="space-y-3 overflow-y-auto pr-1 max-h-[600px] custom-scrollbar">
+              <div className="space-y-3 overflow-y-auto pr-1 max-h-[560px] py-4 custom-scrollbar">
                 {filteredRoutes.map((route) => (
                   <Card
                     key={route.id}
