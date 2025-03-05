@@ -37,13 +37,13 @@ const TransportationPage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Panel - Map and Search */}
         <div className="lg:col-span-2 ">
-          <div className="bg-white p-4 ">
-            <h2 className="text-lg font-semibold py-2 ">
+          <div className="bg-white p-4 rounded-md">
+            <h2 className="text-lg font-semibold pt-2 pb-4">
               Bus Schedule & Routes
             </h2>
 
             <CardContent className="p-0">
-              <div className="w-full  overflow-hidden ">
+              <div className="w-full rounded-lg overflow-hidden ">
                 <Map
                   width={800}
                   height={500}
