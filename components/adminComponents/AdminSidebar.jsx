@@ -28,7 +28,7 @@ export function AdminSidebar() {
       label: "Cafeteria Menu",
       path: "/admin/cafeteria-menu",
     },
-    { icon: <Truck />, label: "Transportation", path: "/admin/transportation" },
+    { icon: <Truck />, label: "Transportation", path: "/admin/bus-route" },
     { icon: <BookOpen />, label: "Faculty & Schedules", path: "/admin/faculty" },
     { icon: <Calendar />, label: "Event & Clubs", path: "/admin/events-clubs" },
   ];
