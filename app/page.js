@@ -1,5 +1,5 @@
 // import { useUser } from "@clerk/nextjs";
-import Dashboard from "./(main)/dashboard/page";
+import Dashboard from "./(main)/Dashboard/page";
 
 export default function Home() {
   // const { user: clerkUser, isLoaded } = useUser();

@@ -22,13 +22,13 @@ import logo from "@/public/neoCam.png";
 
 export function SidebarPage() {
   const menuItems = [
-    { icon: <Home />, label: "Dashboard", path: "/dashboard" },
-    { icon: <UtensilsCrossed />, label: "Cafeteria Menu", path: "/caf-menu" },
+    { icon: <Home />, label: "Dashboard", path: "/Dashboard" },
+    { icon: <UtensilsCrossed />, label: "Cafeteria Menu", path: "/Cafeteria-Menu" },
     { icon: <Truck />, label: "Transportation", path: "/transportation" },
-    { icon: <BookOpen />, label: "Faculty & Schedules", path: "/classes" },
+    { icon: <BookOpen />, label: "Faculty & Schedules", path: "/Faculty-Schedules" },
     { icon: <Calendar />, label: "Event & Clubs", path: "/events-clubs" },
-    { icon: <MapPinned />, label: "Navigation & Map", path: "/map" },
-    { icon: <Bot />, label: "Uforia AI", path: "/ai-assistant" },
+    { icon: <MapPinned />, label: "Navigation & Map", path: "/Navigation" },
+    { icon: <Bot />, label: "Uforia AI", path: "/Neo-AI" },
   ];
 
   const pathname = usePathname();
