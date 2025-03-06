@@ -26,11 +26,11 @@ export function AdminSidebar() {
     {
       icon: <UtensilsCrossed />,
       label: "Cafeteria Menu",
-      path: "admin/cafeteria-menu",
+      path: "/admin/cafeteria-menu",
     },
-    { icon: <Truck />, label: "Transportation", path: "admin//transportation" },
+    { icon: <Truck />, label: "Transportation", path: "/admin/transportation" },
     { icon: <BookOpen />, label: "Faculty & Schedules", path: "/admin/faculty" },
-    { icon: <Calendar />, label: "Event & Clubs", path: "admin/events-clubs" },
+    { icon: <Calendar />, label: "Event & Clubs", path: "/admin/events-clubs" },
   ];
 
   const pathname = usePathname();
