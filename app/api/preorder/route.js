@@ -12,12 +12,34 @@ export async function POST(req) {
     }
 
     const body = await req.json();
-    const { clerkId, mealId, quantity, pickupTime } = body;
+    const { quantity, pickupTime, name, price, totalPrice, clerkId, stuName } =
+      body;
+
+    console.log(
+      quantity,
+      pickupTime,
+      name,
+      price,
+      totalPrice,
+      clerkId,
+      stuName
+    );
 
     // Validate required fields
-    if (!clerkId || !mealId || !quantity || !pickupTime) {
+    if (
+      !quantity ||
+      !pickupTime ||
+      !name ||
+      !price ||
+      !totalPrice ||
+      !clerkId ||
+      !stuName
+    ) {
       return NextResponse.json(
-        { error: "clerkId, mealId, quantity, and pickupTime are required." },
+        {
+          error:
+            "All fields ( quantity, pickupTime, name, price, totalPrice, clerkId, stuName) are required.",
+        },
         { status: 400 }
       );
     }
@@ -26,17 +48,21 @@ export async function POST(req) {
 
     // Create new pre-order
     const newOrder = new PreOrder({
-      clerkId,
-      mealId,
       quantity,
       pickupTime,
+      name,
+      price,
+      totalPrice,
+      clerkId,
+      stuName,
+
       status: "pending", // Default status
     });
 
     await newOrder.save();
 
     return NextResponse.json(
-      { message: "Pre-order placed successfully." },
+      { message: "Pre-order placed successfully.", order: newOrder },
       { status: 201 }
     );
   } catch (error) {
