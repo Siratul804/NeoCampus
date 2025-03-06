@@ -2,14 +2,40 @@ const mongoose = require("mongoose");
 
 const preOrderSchema = new mongoose.Schema(
   {
-    clerkId: { type: String, required: true },
-    mealId: { type: String, required: true, unique: true },
-    quantity: { type: Number, required: true },
-    pickupTime: { type: String, required: true }, // when to pick the order
+    quantity: {
+      type: Number,
+      required: true,
+      min: 1,
+    },
+    pickupTime: {
+      type: Date,
+      required: true,
+    },
     status: {
       type: String,
-      enum: ["pending", "completed", "cancelled"],
+      enum: ["pending", "confirmed", "completed", "canceled"],
       default: "pending",
+    },
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    totalPrice: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    clerkId: { type: String, required: true }, // Student's ID
+    stuName: {
+      type: String,
+      required: true,
+      trim: true,
     },
   },
   { timestamps: true }
