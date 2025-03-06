@@ -18,7 +18,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import logo from "@/public/logo.png";
+import logo from "@/public/neoCam.png";
 
 export function SidebarPage() {
   const menuItems = [
