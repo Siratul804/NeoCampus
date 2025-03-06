@@ -83,7 +83,7 @@ Start project : node server.mjs
 3. **Start Development Server**
 
 ```bash
-npm run dev
+node server.mjs
 # Open http://localhost:3000
 ```
 
