@@ -2,13 +2,13 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 const isProtectedRoute = createRouteMatcher([
-  "/dashboard(.*)",
-  "/caf-menu(.*)",
+  "/Dashboard(.*)",
+  "/Cafeteria-Menu(.*)",
   "/transportation(.*)",
-  "/classes(.*)",
-  "/map(.*)",
+  "/Faculty-Schedules(.*)",
+  "/Navigation(.*)",
   "/events-clubs(.*)",
-  "/ai-assistant(.*)",
+  "/Neo-AI(.*)",
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
@@ -25,7 +25,7 @@ export default clerkMiddleware(async (auth, req) => {
   // If the user is signed in and trying to access the sign-in page, redirect them to /dashboard.
   if (userId && url.pathname === (process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL || "/sign-in")) {
     return NextResponse.redirect(
-      new URL(process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL || "/dashboard", req.url)
+      new URL(process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL || "/Dashboard", req.url)
     );
   }
 

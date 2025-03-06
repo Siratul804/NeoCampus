@@ -24,23 +24,20 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-     
   return (
     <ClerkProvider>
       <html lang="en">
-        <body >
+        <body>
           <div className="flex h-screen bg-[#e5e7eb]">
-           <AdminSidebar/>
+            <AdminSidebar />
             <div className="flex flex-col flex-1 overflow-hidden">
               <main className="flex-1 overflow-y-auto px-4 py-0 ">
-               
                 {children}
               </main>
             </div>
           </div>
-         
         </body>
       </html>
-     </ClerkProvider>
+    </ClerkProvider>
   );
 }
