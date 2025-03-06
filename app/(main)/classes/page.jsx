@@ -1,5 +1,5 @@
 "use client";
-import { useUser } from "@clerk/nextjs";
+
 import { useState, useEffect } from "react";
 import {
   CalendarIcon,
@@ -16,7 +16,6 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Calendar } from "@/components/ui/calendar";
-import UserInfoFill from "@/app/components/UserInfoFill";
 
 // Reduced schedule data
 const scheduleData = {
@@ -106,38 +105,6 @@ export default function ClassesPage() {
   const [currentWeek, setCurrentWeek] = useState(scheduleData.weekRange);
   const [searchTerm, setSearchTerm] = useState("");
   const [date, setDate] = useState(new Date());
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [userData, setUserData] = useState(null);
-
-  const { user } = useUser();
-
-  useEffect(() => {
-    if (!user?.id) return;
-
-    const fetchUserData = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(`/api/userGet/${user.id}`);
-        if (!response.ok) throw new Error("Todo data not found");
-
-        const data = await response.json();
-
-        setUserData(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, [user?.id]);
-
-  // console.log(userData.Semester);
-
-  if (!userData?.Semester || !userData?.Section || !userData?.Section)
-    return <UserInfoFill clerkId={user?.id} />;
 
   // Filter faculty based on search term
   const filteredFaculty = facultyData.filter(
