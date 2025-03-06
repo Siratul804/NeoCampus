@@ -1,11 +1,9 @@
-// import { SidebarPage } from "@/components/Sidebar";
-
 import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
-// import { Navbar } from "@/components/Navbar";
+
 import { AdminSidebar } from "@/components/adminComponents/adminSidebar";
 
-// const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "NeoFetchHackathon",
@@ -27,7 +25,7 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body>
+        <body className={`${inter.className}`}>
           <div className="flex h-screen bg-[#e5e7eb]">
             <AdminSidebar />
             <div className="flex flex-col flex-1 overflow-hidden">
