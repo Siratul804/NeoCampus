@@ -4,7 +4,7 @@ import { User } from "@/app/db/models/User";
 
 export async function PUT(req, { params }) {
   try {
-    const { id } = params; // Get ID from URL params
+    const { id } = await params; // Get ID from URL params
 
     if (!id) {
       return NextResponse.json(
