@@ -23,9 +23,17 @@ import logo from "@/public/neoCam.png";
 export function SidebarPage() {
   const menuItems = [
     { icon: <Home />, label: "Dashboard", path: "/Dashboard" },
-    { icon: <UtensilsCrossed />, label: "Cafeteria Menu", path: "/Cafeteria-Menu" },
+    {
+      icon: <UtensilsCrossed />,
+      label: "Cafeteria Menu",
+      path: "/Cafeteria-Menu",
+    },
     { icon: <Truck />, label: "Transportation", path: "/transportation" },
-    { icon: <BookOpen />, label: "Faculty & Schedules", path: "/Faculty-Schedules" },
+    {
+      icon: <BookOpen />,
+      label: "Faculty & Schedules",
+      path: "/Faculty-Schedules",
+    },
     { icon: <Calendar />, label: "Event & Clubs", path: "/events-clubs" },
     { icon: <MapPinned />, label: "Navigation & Map", path: "/Navigation" },
     { icon: <Bot />, label: "NeoCampus AI", path: "/Neo-AI" },
@@ -52,7 +60,7 @@ export function SidebarPage() {
           className={`${isExpanded ? "block" : "hidden"} text-lg font-bold`}
         >
           <Link
-            href="/dashboard"
+            href="/Dashboard"
             className="text-4xl font-bold items-center space-x-2"
           >
             <Image
