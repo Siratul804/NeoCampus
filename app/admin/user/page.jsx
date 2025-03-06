@@ -26,7 +26,7 @@ export default function UsersPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    role: "",
+    department: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -89,7 +89,7 @@ export default function UsersPage() {
     setFormData({
       name: user.name || "",
       email: user.email || "",
-      role: user.role || "",
+      department: user.department || "",
     })
     setEditDialogOpen(true)
   }
@@ -98,7 +98,7 @@ export default function UsersPage() {
     setFormData({
       name: "",
       email: "",
-      role: "",
+      department: "",
     })
     setAddDialogOpen(true)
   }
@@ -116,7 +116,7 @@ export default function UsersPage() {
     setIsSubmitting(true)
 
     try {
-      const response = await fetch("/api/userEdit", {
+      const response = await fetch("/api/userPut", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -204,7 +204,7 @@ export default function UsersPage() {
                 <TableRow>
                   <TableHead>Name</TableHead>
                   <TableHead>Email</TableHead>
-                  <TableHead>Role</TableHead>
+                  <TableHead>Department</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
@@ -220,7 +220,7 @@ export default function UsersPage() {
                     <TableRow key={user.id}>
                       <TableCell className="font-medium">{user.name}</TableCell>
                       <TableCell>{user.email}</TableCell>
-                      <TableCell>{user.role}</TableCell>
+                      <TableCell>{user.department}</TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
                           <Button variant="ghost" size="icon" onClick={() => handleEdit(user)}>
@@ -267,8 +267,8 @@ export default function UsersPage() {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="role">Role</Label>
-                <Input id="role" name="role" value={formData.role} onChange={handleInputChange} required />
+                <Label htmlFor="department">Department</Label>
+                <Input id="department" name="department" value={formData.department} onChange={handleInputChange} required />
               </div>
             </div>
             <DialogFooter>
@@ -309,8 +309,8 @@ export default function UsersPage() {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="add-role">Role</Label>
-                <Input id="add-role" name="role" value={formData.role} onChange={handleInputChange} required />
+                <Label htmlFor="add-department">department</Label>
+                <Input id="add-department" name="department" value={formData.department} onChange={handleInputChange} required />
               </div>
             </div>
             <DialogFooter>
