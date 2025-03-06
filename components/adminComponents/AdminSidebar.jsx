@@ -20,15 +20,17 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import logo from "@/public/neoCam.png";
 
-export function SidebarPage() {
+export function AdminSidebar() {
   const menuItems = [
-    { icon: <Home />, label: "Dashboard", path: "/Dashboard" },
-    { icon: <UtensilsCrossed />, label: "Cafeteria Menu", path: "/Cafeteria-Menu" },
-    { icon: <Truck />, label: "Transportation", path: "/transportation" },
-    { icon: <BookOpen />, label: "Faculty & Schedules", path: "/Faculty-Schedules" },
-    { icon: <Calendar />, label: "Event & Clubs", path: "/events-clubs" },
-    { icon: <MapPinned />, label: "Navigation & Map", path: "/Navigation" },
-    { icon: <Bot />, label: "NeoCampus AI", path: "/Neo-AI" },
+    { icon: <Home />, label: "user", path: "/admin/user" },
+    {
+      icon: <UtensilsCrossed />,
+      label: "Cafeteria Menu",
+      path: "admin/cafeteria-menu",
+    },
+    { icon: <Truck />, label: "Transportation", path: "admin//transportation" },
+    { icon: <BookOpen />, label: "Faculty & Schedules", path: "/admin/faculty" },
+    { icon: <Calendar />, label: "Event & Clubs", path: "admin/events-clubs" },
   ];
 
   const pathname = usePathname();
@@ -51,7 +53,7 @@ export function SidebarPage() {
         <span
           className={`${isExpanded ? "block" : "hidden"} text-lg font-bold`}
         >
-          <Link
+          {/* <Link
             href="/dashboard"
             className="text-4xl font-bold items-center space-x-2"
           >
@@ -60,7 +62,7 @@ export function SidebarPage() {
               alt="logo"
               className="h-auto w-[15vh] my-2"
             />
-          </Link>
+          </Link> */}
         </span>
         <Button
           variant="ghost"
