@@ -23,9 +23,15 @@ export default clerkMiddleware(async (auth, req) => {
   }
 
   // If the user is signed in and trying to access the sign-in page, redirect them to /dashboard.
-  if (userId && url.pathname === (process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL || "/sign-in")) {
+  if (
+    userId &&
+    url.pathname === (process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL || "/sign-in")
+  ) {
     return NextResponse.redirect(
-      new URL(process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL || "/Dashboard", req.url)
+      new URL(
+        process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL || "/Dashboard",
+        req.url
+      )
     );
   }
 
@@ -34,7 +40,7 @@ export default clerkMiddleware(async (auth, req) => {
 
 export const config = {
   matcher: [
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    '/(api|trpc)(.*)',
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    "/(api|trpc)(.*)",
   ],
 };
