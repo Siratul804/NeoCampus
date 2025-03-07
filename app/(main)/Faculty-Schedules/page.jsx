@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Calendar } from "@/components/ui/calendar";
+import {facultyData} from "@/data/FacultyData"
 
 // Reduced schedule data
 const scheduleData = {
@@ -74,31 +75,7 @@ const scheduleData = {
   ],
 };
 
-// Reduced faculty data
-const facultyData = [
-  {
-    id: 1,
-    name: "Dr. Sarah Johnson",
-    email: "sjohnson@school.edu",
-    phone: "(555) 123-4567",
-    department: "CSE",
-    courses: ["Physics 101", "Advanced Physics"],
-    officeHours: "Monday, Wednesday: 2:00 PM - 4:00 PM",
-    office: "Science Building, Room 305",
-    avatar: "/placeholder.svg?height=80&width=80",
-  },
-  {
-    id: 2,
-    name: "Prof. Michael Chen",
-    email: "mchen@school.edu",
-    phone: "(555) 234-5678",
-    department: "EEE",
-    courses: ["Chemistry 101", "Organic Chemistry"],
-    officeHours: "Tuesday, Thursday: 1:00 PM - 3:00 PM",
-    office: "Science Building, Room 210",
-    avatar: "/placeholder.svg?height=80&width=80",
-  },
-];
+
 
 export default function ClassesPage() {
   const [view, setView] = useState("schedule");
