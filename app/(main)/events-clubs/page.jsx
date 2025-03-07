@@ -249,7 +249,7 @@ export default function UniversityPortal() {
               </CardHeader>
 
               {/* events */}
-              <CardContent>
+              {/* <CardContent>
                 <ScrollArea className="h-[400px] pr-4">
                   {selectedDateEvents.length > 0 ? (
                     <div className="space-y-4">
@@ -319,7 +319,9 @@ export default function UniversityPortal() {
                     </div>
                   )}
                 </ScrollArea>
-              </CardContent>
+              </CardContent> */}
+
+              {/* <AllEvents /> */}
             </Card>
           </div>
         </TabsContent>
@@ -455,3 +457,67 @@ export default function UniversityPortal() {
     </div>
   );
 }
+
+const AllEvents = () => {
+  return (
+    <CardContent>
+      <ScrollArea className="h-[400px] pr-4">
+        {true ? (
+          <div className="space-y-4">
+            {selectedDateEvents.map((event) => (
+              <Card key={event.id} className="overflow-hidden">
+                <div
+                  className={`h-2 ${getCategoryColor(event.clubCategory)}`}
+                />
+                <CardHeader className="pb-2">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <CardTitle className="text-lg">{event.title}</CardTitle>
+                      <CardDescription className="flex items-center mt-1">
+                        <div className="p-1 rounded-full bg-muted mr-2">
+                          {getIconComponent(event.clubIcon)}
+                        </div>
+                        {event.clubName}
+                      </CardDescription>
+                    </div>
+                    {getStatusBadge(event.status)}
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm">{event.description}</p>
+                </CardContent>
+                <CardFooter className="flex justify-between border-t pt-4">
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                      id={`rsvp-${event.id}`}
+                      checked={rsvpEvents[event.id] || false}
+                      onCheckedChange={() => handleRsvpToggle(event.id)}
+                    />
+                    <Label htmlFor={`rsvp-${event.id}`}>RSVP</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                      id={`reminder-${event.id}`}
+                      checked={reminders[event.id] || false}
+                      onCheckedChange={() => handleReminderToggle(event.id)}
+                    />
+                    <Label htmlFor={`reminder-${event.id}`}>Reminder</Label>
+                  </div>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center h-full py-8">
+            <CalendarIcon className="h-12 w-12 text-muted-foreground mb-4" />
+            <h3 className="text-lg font-medium">No events scheduled</h3>
+            <p className="text-muted-foreground text-center mt-2">
+              There are no events scheduled for this date. Try selecting a
+              different date.
+            </p>
+          </div>
+        )}
+      </ScrollArea>
+    </CardContent>
+  );
+};
