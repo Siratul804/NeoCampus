@@ -8,12 +8,13 @@ import { usePathname } from "next/navigation";
 export default function ClientLayout({ children }) {
   const pathname = usePathname();
   const isAdminRoute = pathname.startsWith("/admin");
+  const isFacultyRoute = pathname.startsWith("/faculty");
 
   return (
     <div className="flex h-screen bg-[#e5e7eb]">
-      {!isAdminRoute && <SidebarPage />}
+      {!isAdminRoute && !isFacultyRoute && <SidebarPage />}
       <div className="flex flex-col flex-1 overflow-hidden">
-        {!isAdminRoute && <Navbar />}
+        {!isAdminRoute && !isFacultyRoute && <Navbar />}
         <main className="flex-1 overflow-y-auto px-4 py-0">{children}</main>
       </div>
     </div>
