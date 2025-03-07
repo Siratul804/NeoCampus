@@ -239,7 +239,7 @@ export default function UniversityPortal() {
                     {/* <Button variant="outline" size="sm">
                       Add Event{" "}
                     </Button> */}
-                    <CreateEventModal />
+                    {/* <CreateEventModal /> */}
                   </div>
                 </div>
                 <CardDescription>
@@ -320,6 +320,8 @@ export default function UniversityPortal() {
                   )}
                 </ScrollArea>
               </CardContent>
+
+              {/* <AllEvents /> */}
             </Card>
           </div>
         </TabsContent>
@@ -455,3 +457,84 @@ export default function UniversityPortal() {
     </div>
   );
 }
+
+const AllEvents = () => {
+  return (
+    <CardContent>
+      <ScrollArea className="h-[400px] pr-4">
+        {10 > 0 ? (
+          <div className="space-y-4">
+            {[1, 2, 3].map((event) => (
+              <Card key={event} className="overflow-hidden">
+                <div
+                  // className={`h-2 ${getCategoryColor(event.clubCategory)}`}
+                  className={`h-2`}
+                />
+                <CardHeader className="pb-2">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <CardTitle className="text-lg">Event title</CardTitle>
+                      <CardDescription className="flex items-center mt-1">
+                        <div className="p-1 rounded-full bg-muted mr-2">
+                          {/* {getIconComponent(event.clubIcon)} */}
+                          <Palette />
+                        </div>
+                        Club Name
+                      </CardDescription>
+                    </div>
+                    {/* {getStatusBadge(event.status)} */}
+                    <Badge
+                      variant="secondary"
+                      className="bg-blue-100 text-blue-700"
+                    >
+                      Upcoming
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  {/* <p className="text-sm">{event.description}</p> */}
+                  <p className="text-sm">Event Description</p>
+                </CardContent>
+                <CardFooter className="flex justify-between border-t pt-4">
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                    // id={`rsvp-${event.id}`}
+                    // checked={rsvpEvents[event.id] || false}
+                    // onCheckedChange={() => handleRsvpToggle(event.id)}
+                    />
+                    <Label
+                    // htmlFor={`rsvp-${event.id}`}
+                    >
+                      RSVP
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                    // id={`reminder-${event.id}`}
+                    // checked={reminders[event.id] || false}
+                    // onCheckedChange={() => handleReminderToggle(event.id)}
+                    />
+                    <Label
+                    // htmlFor={`reminder-${event.id}`}
+                    >
+                      Reminder
+                    </Label>
+                  </div>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center h-full py-8">
+            <CalendarIcon className="h-12 w-12 text-muted-foreground mb-4" />
+            <h3 className="text-lg font-medium">No events scheduled</h3>
+            <p className="text-muted-foreground text-center mt-2">
+              There are no events scheduled for this date. Try selecting a
+              different date.
+            </p>
+          </div>
+        )}
+      </ScrollArea>
+    </CardContent>
+  );
+};
