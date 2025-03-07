@@ -56,12 +56,6 @@ export default function CafeteriaMenuPage() {
       itemName: "Pasta Primavera",
       price: 9.25,
     },
-    {
-      id: 4,
-      userName: "Sarah Williams",
-      itemName: "Caesar Salad",
-      price: 6.75,
-    },
   ]);
 
   useEffect(() => {
@@ -356,9 +350,9 @@ export default function CafeteriaMenuPage() {
               </div>
             ) : (
               preorders.map((order) => (
-                <Card key={order.id} className="overflow-hidden">
-                  <CardContent className="p-4">
-                    <div className="flex justify-between items-start">
+                <Card key={order.id} className="overflow-hidden m-4 ">
+                  <CardContent className="m-4">
+                    <div className="flex justify-between items-start m-4 ">
                       <div>
                         <h3 className="font-medium">{order.userName}</h3>
                         <p className="text-sm text-muted-foreground">
