@@ -20,9 +20,9 @@ export function Navbar() {
       setNotification(message);
     };
 
-    socket.on("notification", handleNotification);
+    socket.on("menuAdded", handleNotification);
     return () => {
-      socket.off("notification", handleNotification);
+      socket.off("menuAdded", handleNotification);
     };
   }, []);
 

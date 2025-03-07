@@ -137,6 +137,7 @@ export default function CafeteriaMenuPage() {
       }
 
       if (response.ok) {
+        socket.emit("triggerMenuAdded");
         console.log("added successfully");
       }
 
