@@ -3,33 +3,6 @@ import { clubsData } from "@/data/ClubData";
 
 const allEvents = clubsData.flatMap((club) => club.events || []);
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
-
-async function aiEventRecommend(input) {
-  const systemPrompt = `You are an AI expert tasked with providing eventRecommend, easily understandable responses on the best events.`;
-
-  // Request Groq API to generate answers
-  const chatCompletion = await groq.chat.completions.create({
-    messages: [
-      { role: "system", content: systemPrompt },
-      { role: "user", content: `Generate answers` },
-    ],
-    model: "llama-3.3-70b-versatile",
-    temperature: 0.7,
-    max_tokens: 1000,
-    top_p: 0.8,
-    stream: false,
-  });
-
-  const aiResponse = chatCompletion.choices[0].message.content;
-
-  // console.log(aiResponse); // Log the AI response for debugging
-
-  return aiResponse; // Return the response directly as JSON
-}
-
 export async function POST(req) {
   try {
     const { tag } = await req.json();
