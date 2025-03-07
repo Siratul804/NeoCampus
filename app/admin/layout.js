@@ -1,7 +1,7 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 
-import { AdminSidebar } from "@/components/adminComponents/adminSidebar";
+import { AdminSidebar } from "@/components/adminComponents/AdminSidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
