@@ -31,8 +31,9 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { enqueueSnackbar } from "notistack";
 
-export default function TodoModal() {
+export default function TodoModal({ handleRevalidate, revalidate }) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
@@ -82,8 +83,14 @@ export default function TodoModal() {
         setDueDate(null);
         setStatus("");
         setPriority("");
-        alert(data.message);
-        router.refresh();
+        // alert(data.message);
+
+        // router.refresh();
+
+        enqueueSnackbar(data.message, {
+          variant: "default",
+        });
+        handleRevalidate();
       } else {
         alert(data.error);
       }

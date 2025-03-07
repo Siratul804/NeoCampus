@@ -98,8 +98,6 @@ const CampusNavigationPage = () => {
       </Card>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      
-      
         {/* sidebar for location search and select */}
         <Card className="md:col-span-1">
           <CardHeader className="pb-2">
