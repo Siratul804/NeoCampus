@@ -5,10 +5,10 @@ import { Event } from "@/app/db/models/Event";
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { title, description, date, time, location, reminders } = body;
+    const { title, description, date, time, club } = body;
 
     // Validate required fields
-    if (!title || !date || !time || !location) {
+    if (!title || !date || !time || !club) {
       return NextResponse.json(
         { error: "Title, date, time, location are required." },
         { status: 400 }
@@ -23,8 +23,7 @@ export async function POST(req) {
       description: description || "",
       date,
       time,
-      location,
-      reminders: Array.isArray(reminders) ? reminders : [],
+      club,
     });
 
     return NextResponse.json(
