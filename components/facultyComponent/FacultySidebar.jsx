@@ -22,25 +22,10 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import logo from "@/public/neoCam.png";
 
-export function SidebarPage() {
+export function FacultySidebar() {
   const menuItems = [
-    { icon: <Home />, label: "Dashboard", path: "/Dashboard" },
-    {
-      icon: <UtensilsCrossed />,
-      label: "Cafeteria Menu",
-      path: "/Cafeteria-Menu",
-    },
-    { icon: <Truck />, label: "Transportation", path: "/transportation" },
-    {
-      icon: <BookOpen />,
-      label: "Faculty & Schedules",
-      path: "/Faculty-Schedules",
-    },
-    { icon: <Calendar />, label: "Event & Clubs", path: "/events-clubs" },
-    { icon: <Megaphone  />, label: "Updates & Announcements", path: "/updates-announcements" },
-    { icon: <MapPinned />, label: "Navigation & Map", path: "/Navigation" },
-    { icon: <MessageCircle  />, label: "Messages", path: "/messages" },
-    { icon: <Bot />, label: "NeoCampus AI", path: "/Neo-AI" },
+    { icon: <MessageCircle />, label: "Messages", path: "/faculty/messages" },
+   
   ];
 
   const pathname = usePathname();
