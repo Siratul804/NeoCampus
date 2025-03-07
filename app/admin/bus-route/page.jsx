@@ -1,9 +1,17 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -11,7 +19,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,21 +29,21 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Pencil, Trash2, Bus, Loader2 } from "lucide-react"
-import { Toaster, toast } from "sonner"
+} from "@/components/ui/alert-dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardHeader, CardTitle,CardDescription } from "@/components/ui/card";
+import { Pencil, Trash2, Bus, Loader2,UserPlus } from "lucide-react";
+import { Toaster, toast } from "sonner";
 
 export default function TransportationAdmin() {
-  const router = useRouter()
-  const [busSchedules, setBusSchedules] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [editDialogOpen, setEditDialogOpen] = useState(false)
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
-  const [selectedBus, setSelectedBus] = useState(null)
+  const router = useRouter();
+  const [busSchedules, setBusSchedules] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [selectedBus, setSelectedBus] = useState(null);
   const [formData, setFormData] = useState({
     routeNumber: "",
     startLocation: "",
@@ -43,35 +51,35 @@ export default function TransportationAdmin() {
     stops: "",
     departureTimes: "",
     delayInfo: "On Time",
-  })
+  });
 
   // Fetch bus schedules
   useEffect(() => {
-    fetchBusSchedules()
-  }, [])
+    fetchBusSchedules();
+  }, []);
 
   const fetchBusSchedules = async () => {
     try {
-      setLoading(true)
-      const response = await fetch("/api/getBusSchedule")
+      setLoading(true);
+      const response = await fetch("/api/getBusSchedule");
       if (!response.ok) {
-        throw new Error("Failed to fetch bus schedules")
+        throw new Error("Failed to fetch bus schedules");
       }
-      const data = await response.json()
-      setBusSchedules(data)
+      const data = await response.json();
+      setBusSchedules(data);
     } catch (error) {
-      console.error("Error fetching bus schedules:", error)
+      console.error("Error fetching bus schedules:", error);
       toast.error("Failed to load bus schedules", {
         description: "Please try again later.",
-      })
+      });
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   // Handle edit bus
   const handleEditClick = (bus) => {
-    setSelectedBus(bus)
+    setSelectedBus(bus);
     setFormData({
       routeNumber: bus.routeNumber,
       startLocation: bus.startLocation,
@@ -79,24 +87,24 @@ export default function TransportationAdmin() {
       stops: bus.stops.join(", "),
       departureTimes: bus.departureTimes.join(", "),
       delayInfo: bus.delayInfo || "On Time",
-    })
-    setEditDialogOpen(true)
-  }
+    });
+    setEditDialogOpen(true);
+  };
 
   // Handle delete bus
   const handleDeleteClick = (bus) => {
-    setSelectedBus(bus)
-    setDeleteDialogOpen(true)
-  }
+    setSelectedBus(bus);
+    setDeleteDialogOpen(true);
+  };
 
   // Handle form input changes
   const handleInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
-    })
-  }
+    });
+  };
 
   // Submit edit form
   const handleEditSubmit = async () => {
@@ -105,8 +113,10 @@ export default function TransportationAdmin() {
       const formattedData = {
         ...formData,
         stops: formData.stops.split(",").map((stop) => stop.trim()),
-        departureTimes: formData.departureTimes.split(",").map((time) => time.trim()),
-      }
+        departureTimes: formData.departureTimes
+          .split(",")
+          .map((time) => time.trim()),
+      };
 
       const response = await fetch("/api/editBus", {
         method: "PUT",
@@ -117,25 +127,25 @@ export default function TransportationAdmin() {
           id: selectedBus._id,
           ...formattedData,
         }),
-      })
+      });
 
       if (!response.ok) {
-        throw new Error("Failed to update bus schedule")
+        throw new Error("Failed to update bus schedule");
       }
 
       toast.success("Bus schedule updated", {
         description: "The bus information has been successfully updated.",
-      })
+      });
 
-      setEditDialogOpen(false)
-      fetchBusSchedules()
+      setEditDialogOpen(false);
+      fetchBusSchedules();
     } catch (error) {
-      console.error("Error updating bus schedule:", error)
+      console.error("Error updating bus schedule:", error);
       toast.error("Failed to update bus schedule", {
         description: "Please check your input and try again.",
-      })
+      });
     }
-  }
+  };
 
   // Delete bus
   const handleDeleteConfirm = async () => {
@@ -148,35 +158,45 @@ export default function TransportationAdmin() {
         body: JSON.stringify({
           id: selectedBus._id,
         }),
-      })
+      });
 
       if (!response.ok) {
-        throw new Error("Failed to delete bus schedule")
+        throw new Error("Failed to delete bus schedule");
       }
 
       toast.success("Bus schedule deleted", {
         description: "The bus has been successfully removed from the system.",
-      })
+      });
 
-      setDeleteDialogOpen(false)
-      fetchBusSchedules()
+      setDeleteDialogOpen(false);
+      fetchBusSchedules();
     } catch (error) {
-      console.error("Error deleting bus schedule:", error)
+      console.error("Error deleting bus schedule:", error);
       toast.error("Failed to delete bus schedule", {
         description: "Please try again later.",
-      })
+      });
     }
-  }
+  };
 
   return (
     <div className="container mx-auto py-6">
       <Toaster richColors position="top-right" />
       <Card className="mb-6">
-        <CardHeader className="bg-primary/5">
-          <CardTitle className="flex items-center gap-2 text-2xl">
-            <Bus className="h-6 w-6" />
-            Transportation Management
-          </CardTitle>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <div>
+            <CardTitle className="flex text-2xl">
+              {" "}
+              <Bus className="h-6 w-6 mr-2" />
+              Transportation Management
+            </CardTitle>
+            <CardDescription>
+              Manage your Bus Routes and time from this dashboard
+            </CardDescription>
+          </div>
+          <Button className="ml-auto">
+            <UserPlus className="mr-2 h-4 w-4" />
+            Add User
+          </Button>
         </CardHeader>
         <CardContent className="p-6">
           {loading ? (
@@ -185,7 +205,9 @@ export default function TransportationAdmin() {
             </div>
           ) : (
             <Table>
-              <TableCaption>List of all bus schedules in the system</TableCaption>
+              <TableCaption>
+                List of all bus schedules in the system
+              </TableCaption>
               <TableHeader>
                 <TableRow>
                   <TableHead>Route Number</TableHead>
@@ -200,14 +222,19 @@ export default function TransportationAdmin() {
               <TableBody>
                 {busSchedules.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
+                    <TableCell
+                      colSpan={7}
+                      className="text-center py-8 text-muted-foreground"
+                    >
                       No bus schedules found
                     </TableCell>
                   </TableRow>
                 ) : (
                   busSchedules.map((bus) => (
                     <TableRow key={bus._id}>
-                      <TableCell className="font-medium">{bus.routeNumber}</TableCell>
+                      <TableCell className="font-medium">
+                        {bus.routeNumber}
+                      </TableCell>
                       <TableCell>{bus.startLocation}</TableCell>
                       <TableCell>{bus.endLocation}</TableCell>
                       <TableCell>
@@ -231,7 +258,9 @@ export default function TransportationAdmin() {
                       <TableCell>
                         <span
                           className={`px-2 py-1 rounded-full text-xs ${
-                            bus.delayInfo === "On Time" ? "bg-green-100 text-green-800" : "bg-amber-100 text-amber-800"
+                            bus.delayInfo === "On Time"
+                              ? "bg-green-100 text-green-800"
+                              : "bg-amber-100 text-amber-800"
                           }`}
                         >
                           {bus.delayInfo}
@@ -239,10 +268,18 @@ export default function TransportationAdmin() {
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
-                          <Button variant="outline" size="icon" onClick={() => handleEditClick(bus)}>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            onClick={() => handleEditClick(bus)}
+                          >
                             <Pencil className="h-4 w-4" />
                           </Button>
-                          <Button variant="destructive" size="icon" onClick={() => handleDeleteClick(bus)}>
+                          <Button
+                            variant="destructive"
+                            size="icon"
+                            onClick={() => handleDeleteClick(bus)}
+                          >
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
@@ -261,17 +298,29 @@ export default function TransportationAdmin() {
         <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>
             <DialogTitle>Edit Bus Schedule</DialogTitle>
-            <DialogDescription>Update the information for route {formData.routeNumber}</DialogDescription>
+            <DialogDescription>
+              Update the information for route {formData.routeNumber}
+            </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="routeNumber">Route Number</Label>
-                <Input id="routeNumber" name="routeNumber" value={formData.routeNumber} onChange={handleInputChange} />
+                <Input
+                  id="routeNumber"
+                  name="routeNumber"
+                  value={formData.routeNumber}
+                  onChange={handleInputChange}
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="delayInfo">Status</Label>
-                <Input id="delayInfo" name="delayInfo" value={formData.delayInfo} onChange={handleInputChange} />
+                <Input
+                  id="delayInfo"
+                  name="delayInfo"
+                  value={formData.delayInfo}
+                  onChange={handleInputChange}
+                />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -286,11 +335,18 @@ export default function TransportationAdmin() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="endLocation">End Location</Label>
-                <Input id="endLocation" name="endLocation" value={formData.endLocation} onChange={handleInputChange} />
+                <Input
+                  id="endLocation"
+                  name="endLocation"
+                  value={formData.endLocation}
+                  onChange={handleInputChange}
+                />
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="departureTimes">Departure Times (comma separated)</Label>
+              <Label htmlFor="departureTimes">
+                Departure Times (comma separated)
+              </Label>
               <Textarea
                 id="departureTimes"
                 name="departureTimes"
@@ -327,8 +383,8 @@ export default function TransportationAdmin() {
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This will permanently delete the bus schedule for route {selectedBus?.routeNumber}. This action cannot be
-              undone.
+              This will permanently delete the bus schedule for route{" "}
+              {selectedBus?.routeNumber}. This action cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -343,6 +399,5 @@ export default function TransportationAdmin() {
         </AlertDialogContent>
       </AlertDialog>
     </div>
-  )
+  );
 }
-
