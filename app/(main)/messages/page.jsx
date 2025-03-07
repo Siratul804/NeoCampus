@@ -16,7 +16,7 @@ export default function MessagesPage() {
 
   return (
     <SidebarProvider>
-      <div className="h-screen flex">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_300px] h-screen">
         {/* Main chat area on the left */}
         <SidebarInset className="flex-1">
           <ChatInterface selectedFaculty={selectedFaculty} />
