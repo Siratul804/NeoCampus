@@ -22,7 +22,7 @@ import logo from "@/public/neoCam.png";
 
 export function AdminSidebar() {
   const menuItems = [
-    { icon: <Home />, label: "user", path: "/admin/user" },
+    { icon: <Home />, label: "User", path: "/admin/user" },
     {
       icon: <UtensilsCrossed />,
       label: "Cafeteria Menu",
