@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { toast } from "sonner"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
+import { useState, useEffect } from "react";
+import { toast } from "sonner";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { socket } from "@/socket";
 import {
   Dialog,
   DialogContent,
@@ -11,56 +12,83 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Loader2, Plus, ClipboardList, Trash2 } from "lucide-react"
+} from "@/components/ui/dialog";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Loader2, Plus, ClipboardList, Trash2 } from "lucide-react";
 
 export default function CafeteriaMenuPage() {
-  const [menuItems, setMenuItems] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [addDialogOpen, setAddDialogOpen] = useState(false)
-  const [preordersOpen, setPreordersOpen] = useState(false)
+  const [menuItems, setMenuItems] = useState([]);
+  const [notification, setNotification] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [addDialogOpen, setAddDialogOpen] = useState(false);
+  const [preordersOpen, setPreordersOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     price: "",
     nutrition: "",
     image: "",
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  });
+
+  console.log(notification);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [preorders, setPreorders] = useState([
     { id: 1, userName: "John Doe", itemName: "Chicken Salad", price: 8.99 },
     { id: 2, userName: "Jane Smith", itemName: "Veggie Burger", price: 7.5 },
-    { id: 3, userName: "Mike Johnson", itemName: "Pasta Primavera", price: 9.25 },
-    { id: 4, userName: "Sarah Williams", itemName: "Caesar Salad", price: 6.75 },
-  ])
+    {
+      id: 3,
+      userName: "Mike Johnson",
+      itemName: "Pasta Primavera",
+      price: 9.25,
+    },
+    {
+      id: 4,
+      userName: "Sarah Williams",
+      itemName: "Caesar Salad",
+      price: 6.75,
+    },
+  ]);
 
   useEffect(() => {
-    fetchMenuItems()
-  }, [])
+    fetchMenuItems();
+  }, []);
 
   const fetchMenuItems = async () => {
     try {
-      setLoading(true)
-      const response = await fetch("/api/cafeteriaGet")
+      setLoading(true);
+      const response = await fetch("/api/cafeteriaGet");
 
       if (!response.ok) {
-        throw new Error("Failed to fetch menu items")
+        throw new Error("Failed to fetch menu items");
       }
 
-      const data = await response.json()
-      const allMeals = data.data.flatMap((entry) => entry.meals)
-      setMenuItems(allMeals)
+      const data = await response.json();
+      const allMeals = data.data.flatMap((entry) => entry.meals);
+      setMenuItems(allMeals);
     } catch (error) {
       toast.error("Failed to load menu items", {
-        description: error.message || "An error occurred while fetching menu items",
-      })
+        description:
+          error.message || "An error occurred while fetching menu items",
+      });
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const handleAddNew = () => {
     setFormData({
@@ -68,21 +96,21 @@ export default function CafeteriaMenuPage() {
       price: "",
       nutrition: "",
       image: "",
-    })
-    setAddDialogOpen(true)
-  }
+    });
+    setAddDialogOpen(true);
+  };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
   const handleSubmitAdd = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     try {
       const response = await fetch("/api/cafeteria", {
@@ -91,28 +119,39 @@ export default function CafeteriaMenuPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ...formData,
-          price: Number.parseFloat(formData.price),
-          date: new Date().toISOString(),
+          clerkId: "123456", // Replace with actual clerkId
+          date: new Date().toISOString().split("T")[0], // Sending only the date part
+          meals: [
+            {
+              name: formData.name,
+              price: Number.parseFloat(formData.price),
+              nutrition: formData.nutrition,
+              image: formData.image,
+            },
+          ],
         }),
-      })
+      });
 
       if (!response.ok) {
-        throw new Error("Failed to add menu item")
+        throw new Error("Failed to add menu item");
       }
 
-      const newItem = await response.json()
-      setMenuItems([...menuItems, newItem])
-      toast.success("Menu item added successfully")
-      setAddDialogOpen(false)
+      if (response.ok) {
+        console.log("added successfully");
+      }
+
+      // const result = await response.json();
+
+      setAddDialogOpen(false);
+      fetchMenuItems(); // Refresh menu list after adding
     } catch (error) {
       toast.error("Failed to add menu item", {
         description: error.message || "An error occurred",
-      })
+      });
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   const handleDeleteItem = async (itemId) => {
     try {
@@ -121,30 +160,33 @@ export default function CafeteriaMenuPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id: itemId }),
-      })
+        body: JSON.stringify({
+          menuId: "67c53858f642cf46069cb44c",
+          mealId: itemId,
+        }),
+      });
 
       if (!response.ok) {
-        throw new Error("Failed to delete menu item")
+        throw new Error("Failed to delete menu item");
       }
 
-      setMenuItems(menuItems.filter((item) => item._id !== itemId))
-      toast.success("Menu item deleted successfully")
+      setMenuItems(menuItems.filter((item) => item._id !== itemId));
+      toast.success("Menu item deleted successfully");
     } catch (error) {
       toast.error("Failed to delete menu item", {
         description: error.message || "An error occurred",
-      })
+      });
     }
-  }
+  };
 
   const handleCancelPreorder = (orderId) => {
-    setPreorders(preorders.filter((order) => order.id !== orderId))
-    toast.success("Preorder cancelled successfully")
-  }
+    setPreorders(preorders.filter((order) => order.id !== orderId));
+    toast.success("Preorder cancelled successfully");
+  };
 
   const handleViewPreorders = () => {
-    setPreordersOpen(true)
-  }
+    setPreordersOpen(true);
+  };
 
   return (
     <div className="container mx-auto py-6">
@@ -173,7 +215,9 @@ export default function CafeteriaMenuPage() {
           ) : (
             <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {menuItems.length === 0 ? (
-                <div className="col-span-full text-center py-8 text-muted-foreground">No menu items available</div>
+                <div className="col-span-full text-center py-8 text-muted-foreground">
+                  No menu items available
+                </div>
               ) : (
                 menuItems.map((item) => (
                   <Card key={item._id} className="overflow-hidden">
@@ -183,16 +227,23 @@ export default function CafeteriaMenuPage() {
                     <CardContent className="px-3 py-0">
                       <div className="relative w-full h-28 mb-2">
                         <Image
-                          src={item.image || "/placeholder.svg?height=112&width=112"}
+                          src={
+                            item.image ||
+                            "/placeholder.svg?height=112&width=112"
+                          }
                           alt={item.name}
                           layout="fill"
                           objectFit="cover"
                           className="rounded-md"
                         />
                       </div>
-                      <p className="font-bold text-sm">${item.price.toFixed(2)}</p>
+                      <p className="font-bold text-sm">
+                        ${item.price.toFixed(2)}
+                      </p>
                       {item.nutrition && (
-                        <p className="text-xs text-muted-foreground mt-1 truncate">{item.nutrition}</p>
+                        <p className="text-xs text-muted-foreground mt-1 truncate">
+                          {item.nutrition}
+                        </p>
                       )}
                     </CardContent>
                     <CardFooter className="px-3 py-0">
@@ -218,13 +269,21 @@ export default function CafeteriaMenuPage() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Add New Menu Item</DialogTitle>
-            <DialogDescription>Enter the details for the new menu item.</DialogDescription>
+            <DialogDescription>
+              Enter the details for the new menu item.
+            </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleSubmitAdd}>
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
                 <Label htmlFor="name">Name</Label>
-                <Input id="name" name="name" value={formData.name} onChange={handleInputChange} required />
+                <Input
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="price">Price</Label>
@@ -240,7 +299,12 @@ export default function CafeteriaMenuPage() {
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="nutrition">Nutrition Info</Label>
-                <Input id="nutrition" name="nutrition" value={formData.nutrition} onChange={handleInputChange} />
+                <Input
+                  id="nutrition"
+                  name="nutrition"
+                  value={formData.nutrition}
+                  onChange={handleInputChange}
+                />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="image">Image URL</Label>
@@ -255,11 +319,18 @@ export default function CafeteriaMenuPage() {
               </div>
             </div>
             <DialogFooter>
-              <Button type="button" variant="outline" onClick={() => setAddDialogOpen(false)} disabled={isSubmitting}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setAddDialogOpen(false)}
+                disabled={isSubmitting}
+              >
                 Cancel
               </Button>
               <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {isSubmitting && (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                )}
                 Add Menu Item
               </Button>
             </DialogFooter>
@@ -272,12 +343,16 @@ export default function CafeteriaMenuPage() {
         <SheetContent className="w-full sm:max-w-md overflow-y-auto">
           <SheetHeader className="mb-6">
             <SheetTitle>User Preorders</SheetTitle>
-            <SheetDescription>View and manage all current preorders</SheetDescription>
+            <SheetDescription>
+              View and manage all current preorders
+            </SheetDescription>
           </SheetHeader>
 
           <div className="space-y-4">
             {preorders.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground">No preorders available</div>
+              <div className="text-center py-8 text-muted-foreground">
+                No preorders available
+              </div>
             ) : (
               preorders.map((order) => (
                 <Card key={order.id} className="overflow-hidden">
@@ -285,10 +360,18 @@ export default function CafeteriaMenuPage() {
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="font-medium">{order.userName}</h3>
-                        <p className="text-sm text-muted-foreground">{order.itemName}</p>
-                        <p className="font-bold mt-1">${order.price.toFixed(2)}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {order.itemName}
+                        </p>
+                        <p className="font-bold mt-1">
+                          ${order.price.toFixed(2)}
+                        </p>
                       </div>
-                      <Button variant="destructive" size="sm" onClick={() => handleCancelPreorder(order.id)}>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => handleCancelPreorder(order.id)}
+                      >
                         Cancel Order
                       </Button>
                     </div>
@@ -300,6 +383,5 @@ export default function CafeteriaMenuPage() {
         </SheetContent>
       </Sheet>
     </div>
-  )
+  );
 }
-
