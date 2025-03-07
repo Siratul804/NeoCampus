@@ -5,12 +5,12 @@ import { Event } from "@/app/db/models/Event";
 export async function POST(req) {
   try {
     const body = await req.json();
-    const { title, description, date, time, club } = body;
+    const { title, description, date, time, club, reminders, rsvp } = body;
 
     // Validate required fields
     if (!title || !date || !time || !club) {
       return NextResponse.json(
-        { error: "Title, date, time, location are required." },
+        { error: "Title, date, time, and club are required." },
         { status: 400 }
       );
     }
@@ -18,16 +18,21 @@ export async function POST(req) {
     await connectToDB();
 
     // Create a new event
-    const newEvent = await Event.create({
+    const newEvent = new Event({
       title,
-      description: description || "",
+      description,
       date,
       time,
       club,
+      reminders,
+      rsvp,
     });
 
+    // Save event to the database
+    const savedEvent = await newEvent.save();
+
     return NextResponse.json(
-      { message: "Event created successfully.", event: newEvent },
+      { message: "Event created successfully.", event: savedEvent },
       { status: 201 }
     );
   } catch (error) {

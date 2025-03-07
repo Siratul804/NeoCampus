@@ -7,6 +7,8 @@ const eventSchema = new mongoose.Schema(
     date: { type: Date, required: true },
     time: { type: String, required: true },
     club: { type: String, required: true },
+    reminders: [{ type: String, required: false }],
+    rsvp: [{ type: String, required: false }],
   },
   { timestamps: true }
 );

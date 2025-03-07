@@ -462,63 +462,46 @@ const AllEvents = () => {
   return (
     <CardContent>
       <ScrollArea className="h-[400px] pr-4">
-        {10 > 0 ? (
+        {true ? (
           <div className="space-y-4">
-            {[1, 2, 3].map((event) => (
-              <Card key={event} className="overflow-hidden">
+            {selectedDateEvents.map((event) => (
+              <Card key={event.id} className="overflow-hidden">
                 <div
-                  // className={`h-2 ${getCategoryColor(event.clubCategory)}`}
-                  className={`h-2`}
+                  className={`h-2 ${getCategoryColor(event.clubCategory)}`}
                 />
                 <CardHeader className="pb-2">
                   <div className="flex justify-between items-start">
                     <div>
-                      <CardTitle className="text-lg">Event title</CardTitle>
+                      <CardTitle className="text-lg">{event.title}</CardTitle>
                       <CardDescription className="flex items-center mt-1">
                         <div className="p-1 rounded-full bg-muted mr-2">
-                          {/* {getIconComponent(event.clubIcon)} */}
-                          <Palette />
+                          {getIconComponent(event.clubIcon)}
                         </div>
-                        Club Name
+                        {event.clubName}
                       </CardDescription>
                     </div>
-                    {/* {getStatusBadge(event.status)} */}
-                    <Badge
-                      variant="secondary"
-                      className="bg-blue-100 text-blue-700"
-                    >
-                      Upcoming
-                    </Badge>
+                    {getStatusBadge(event.status)}
                   </div>
                 </CardHeader>
                 <CardContent>
-                  {/* <p className="text-sm">{event.description}</p> */}
-                  <p className="text-sm">Event Description</p>
+                  <p className="text-sm">{event.description}</p>
                 </CardContent>
                 <CardFooter className="flex justify-between border-t pt-4">
                   <div className="flex items-center space-x-2">
                     <Switch
-                    // id={`rsvp-${event.id}`}
-                    // checked={rsvpEvents[event.id] || false}
-                    // onCheckedChange={() => handleRsvpToggle(event.id)}
+                      id={`rsvp-${event.id}`}
+                      checked={rsvpEvents[event.id] || false}
+                      onCheckedChange={() => handleRsvpToggle(event.id)}
                     />
-                    <Label
-                    // htmlFor={`rsvp-${event.id}`}
-                    >
-                      RSVP
-                    </Label>
+                    <Label htmlFor={`rsvp-${event.id}`}>RSVP</Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Switch
-                    // id={`reminder-${event.id}`}
-                    // checked={reminders[event.id] || false}
-                    // onCheckedChange={() => handleReminderToggle(event.id)}
+                      id={`reminder-${event.id}`}
+                      checked={reminders[event.id] || false}
+                      onCheckedChange={() => handleReminderToggle(event.id)}
                     />
-                    <Label
-                    // htmlFor={`reminder-${event.id}`}
-                    >
-                      Reminder
-                    </Label>
+                    <Label htmlFor={`reminder-${event.id}`}>Reminder</Label>
                   </div>
                 </CardFooter>
               </Card>

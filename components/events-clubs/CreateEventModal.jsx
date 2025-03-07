@@ -19,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useGetEvents } from "@/hooks/tanstack/useEvent";
 
 const CreateEventModal = () => {
   return (
@@ -51,6 +52,10 @@ const eventSchema = Yup.object().shape({
 });
 
 const EventForm = () => {
+  const { data, isLoading } = useGetEvents();
+
+  console.log(" = ", data);
+
   const { values, errors, touched, handleChange, handleSubmit, setFieldValue } =
     useFormik({
       initialValues: {

@@ -14,6 +14,7 @@ import {
   Calendar,
   BookOpen,
   Bot,
+  Megaphone 
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -35,6 +36,7 @@ export function SidebarPage() {
       path: "/Faculty-Schedules",
     },
     { icon: <Calendar />, label: "Event & Clubs", path: "/events-clubs" },
+    { icon: <Megaphone  />, label: "Updates & Announcements", path: "/updates-announcements" },
     { icon: <MapPinned />, label: "Navigation & Map", path: "/Navigation" },
     { icon: <Bot />, label: "NeoCampus AI", path: "/Neo-AI" },
   ];
