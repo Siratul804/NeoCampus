@@ -78,7 +78,7 @@ export function ChatInterface({ selectedFaculty }) {
   const currentMessages = selectedFaculty ? messages[selectedFaculty.id] || [] : []
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="container mx-auto p-4 space-y-8 max-w-7xl">
       {/* Header */}
       <div className="border-b p-4">
         {selectedFaculty ? (

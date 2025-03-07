@@ -26,7 +26,7 @@ export function FacultySidebar({ faculties, loading, onSelectFaculty, selectedFa
   )
 
   return (
-    <Sidebar side="right">
+    <Sidebar side="right" className="flex flex-col h-full border-r">
       <SidebarHeader>
         <div className="flex items-center gap-2 px-4 py-2">
           <Users className="h-5 w-5" />
