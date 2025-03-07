@@ -21,8 +21,13 @@ app.prepare().then(() => {
       console.log("user disconnected");
     });
 
-    socket.on("triggerNotification", () => {
-      io.emit("notification", "This is a real-time notification message");
+    socket.on("triggerMenuAdded", () => {
+      console.log("Received triggerMenuAdded event"); // Ensure this logs when the button is clicked
+      io.emit("menuAdded", "New menu added");
+    });
+    socket.on("triggerMenuAdded", () => {
+      console.log("Received triggerMenuAdded event"); // Debug log
+      io.emit("menuAdded", "New menu added");
     });
   });
 

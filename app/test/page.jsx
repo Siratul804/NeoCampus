@@ -5,40 +5,28 @@ import { useEffect, useState } from "react";
 import { socket } from "../../socket";
 
 function page() {
-  const [isConnected, setIsConnected] = useState(false);
-  const [transport, setTransport] = useState("N/A");
   const [notification, setNotification] = useState("");
-
   useEffect(() => {
-    if (socket.connected) {
-      onConnect();
-    }
+    console.log("Setting up listeners...");
 
-    function onConnect() {
-      setIsConnected(true);
-      setTransport(socket.io.engine.transport.name);
-
-      socket.io.engine.on("upgrade", (transport) => {
-        setTransport(transport.name);
-      });
-    }
-
-    function onDisconnect() {
-      setIsConnected(false);
-      setTransport("N/A");
-    }
-
-    socket.on("connect", onConnect);
-    socket.on("disconnect", onDisconnect);
+    socket.on("connect", () => {
+      console.log("Connected:", socket.id);
+    });
 
     socket.on("notification", (message) => {
+      console.log("Received notification:", message);
+      setNotification(message);
+    });
+
+    socket.on("menuAdded", (message) => {
+      console.log("Received menuAdded:", message); // Add this log
       setNotification(message);
     });
 
     return () => {
-      socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
       socket.off("notification");
+      socket.off("menuAdded");
+      socket.off("connect");
     };
   }, []);
 
@@ -46,12 +34,20 @@ function page() {
     socket.emit("triggerNotification");
   };
 
+  const handleMenuAdded = () => {
+    socket.emit("triggerMenuAdded");
+  };
+
   return (
     <>
-      <p>Status: {isConnected ? "connected" : "disconnected"}</p>
-      <p>Transport: {transport}</p>
       <button onClick={handleClick} className=" bg-amber-200 rounded ">
         Trigger Notification
+      </button>
+      <br />
+      <br />
+      <br />
+      <button onClick={handleMenuAdded} className=" bg-amber-200 rounded ">
+        Trigger Menu Added
       </button>
       {notification && <p>Notification: {notification}</p>}
     </>
