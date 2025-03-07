@@ -33,8 +33,14 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle,CardDescription } from "@/components/ui/card";
-import { Pencil, Trash2, Bus, Loader2,UserPlus } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import { Pencil, Trash2, Bus, Loader2, UserPlus } from "lucide-react";
 import { Toaster, toast } from "sonner";
 
 export default function TransportationAdmin() {
@@ -193,8 +199,8 @@ export default function TransportationAdmin() {
               Manage your Bus Routes and time from this dashboard
             </CardDescription>
           </div>
-          <Button className="ml-auto">
-            <UserPlus className="mr-2 h-4 w-4" />
+          <Button className="ml-auto cursor-pointer">
+            <UserPlus className="mr-2 cursor-pointer h-4 w-4" />
             Add User
           </Button>
         </CardHeader>

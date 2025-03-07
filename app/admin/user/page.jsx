@@ -207,7 +207,7 @@ export default function UsersPage() {
               Manage your users from this dashboard
             </CardDescription>
           </div>
-          <Button className="ml-auto" onClick={handleAddNew}>
+          <Button className="ml-auto cursor-pointer" onClick={handleAddNew}>
             <UserPlus className="mr-2 h-4 w-4" />
             Add User
           </Button>

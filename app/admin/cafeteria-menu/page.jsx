@@ -349,7 +349,7 @@ export default function CafeteriaMenuPage() {
             </SheetDescription>
           </SheetHeader>
 
-          <div className="space-y-4">
+          <div className="space-y-4 px-5">
             {preorders.length === 0 ? (
               <div className="text-center py-8 text-muted-foreground">
                 No preorders available
@@ -357,7 +357,7 @@ export default function CafeteriaMenuPage() {
             ) : (
               preorders.map((order) => (
                 <Card key={order.id} className="overflow-hidden">
-                  <CardContent className="p-4">
+                  <CardContent className="p-4 px-6">
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="font-medium">{order.userName}</h3>
