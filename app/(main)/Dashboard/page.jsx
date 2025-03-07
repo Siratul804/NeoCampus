@@ -69,6 +69,7 @@ export default function Dashboard() {
   const [eventData, setEventData] = useState([]); // Initialize as an empty array
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [revalidate, setRevalidate] = useState(1);
 
   const { user } = useUser();
 
@@ -91,7 +92,16 @@ export default function Dashboard() {
     };
 
     fetchTodoData();
-  }, [user?.id]);
+  }, [user?.id, revalidate]);
+
+  
+
+  console.log("todoData:", todoData);
+  console.log("revalidate:", revalidate);
+
+  const handleRevalidate = () => {
+    setRevalidate((prev) => prev + 1);
+  };
 
   useEffect(() => {
     const fetchEventData = async () => {
@@ -110,7 +120,7 @@ export default function Dashboard() {
     };
 
     fetchEventData();
-  }, []);
+  }, [revalidate]);
 
   if (loading) return <>Loading.....</>;
 
@@ -165,7 +175,11 @@ export default function Dashboard() {
                               size="sm"
                               className="h-6 px-2 "
                             >
-                              <DeleteEvent todo_id={todo._id} />
+                              <DeleteEvent
+                                handleRevalidate={handleRevalidate}
+                                revalidate={revalidate}
+                                todo_id={todo._id}
+                              />
                             </Button>
                           </div>
                         </div>
@@ -256,7 +270,10 @@ export default function Dashboard() {
               </Tabs>
             </CardContent>
             <CardFooter>
-              <TodoModal />
+              <TodoModal
+                handleRevalidate={handleRevalidate}
+                revalidate={revalidate}
+              />
             </CardFooter>
           </Card>
 

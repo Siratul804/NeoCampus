@@ -239,7 +239,7 @@ export default function UniversityPortal() {
                     {/* <Button variant="outline" size="sm">
                       Add Event{" "}
                     </Button> */}
-                    <CreateEventModal />
+                    {/* <CreateEventModal /> */}
                   </div>
                 </div>
                 <CardDescription>
@@ -249,7 +249,7 @@ export default function UniversityPortal() {
               </CardHeader>
 
               {/* events */}
-              {/* <CardContent>
+              <CardContent>
                 <ScrollArea className="h-[400px] pr-4">
                   {selectedDateEvents.length > 0 ? (
                     <div className="space-y-4">
@@ -319,7 +319,7 @@ export default function UniversityPortal() {
                     </div>
                   )}
                 </ScrollArea>
-              </CardContent> */}
+              </CardContent>
 
               {/* <AllEvents /> */}
             </Card>

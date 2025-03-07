@@ -1,10 +1,15 @@
 "use client";
 
 import { Trash } from "lucide-react";
+import { enqueueSnackbar } from "notistack";
 
-export default function DeleteEvent({ todo_id }) {
+export default function DeleteEvent({ todo_id, handleRevalidate, revalidate }) {
   const handleDelete = async () => {
-    if (!todo_id) return alert("Todo ID is missing!");
+    // if (!todo_id) return alert("Todo ID is missing!");
+    if (!todo_id)
+      return enqueueSnackbar("Todo ID is missing!", {
+        variant: "error",
+      });
 
     try {
       const response = await fetch("/api/todoDelete", {
@@ -21,7 +26,11 @@ export default function DeleteEvent({ todo_id }) {
         throw new Error(data.error || "Failed to delete.");
       }
 
-      alert("To-Do deleted successfully!");
+      // alert("To-Do deleted successfully!");
+      enqueueSnackbar("To-Do deleted successfully!", {
+        variant: "default",
+      });
+      handleRevalidate();
     } catch (error) {
       console.error("Delete error:", error);
       alert(error.message);

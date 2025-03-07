@@ -1,43 +1,59 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Bell, Calendar, ChevronRight, Eye, Pin } from "lucide-react"
-import { toast, Toaster } from "sonner"
-import { updates, announcements } from "@/data/UniversityData"
+import { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Bell, Calendar, ChevronRight, Eye, Pin } from "lucide-react";
+import { toast, Toaster } from "sonner";
+import { updates, announcements } from "@/data/UniversityData";
+import { useGetAnnouncements } from "@/hooks/tanstack/useAnnouncements";
 
 export default function UpdatesAndAnnouncements() {
-  const [pinnedAnnouncements, setPinnedAnnouncements] = useState([])
+  const [pinnedAnnouncements, setPinnedAnnouncements] = useState([]);
 
   const togglePin = (id) => {
     if (pinnedAnnouncements.includes(id)) {
-      setPinnedAnnouncements(pinnedAnnouncements.filter((item) => item !== id))
-      toast.success("Announcement unpinned")
+      setPinnedAnnouncements(pinnedAnnouncements.filter((item) => item !== id));
+      toast.success("Announcement unpinned");
     } else {
-      setPinnedAnnouncements([...pinnedAnnouncements, id])
-      toast.success("Announcement pinned for later reference")
+      setPinnedAnnouncements([...pinnedAnnouncements, id]);
+      toast.success("Announcement pinned for later reference");
     }
-  }
+  };
 
   const markAsRead = (id, type) => {
-    toast.success(`${type === "update" ? "Update" : "Announcement"} marked as read`)
-  }
+    toast.success(
+      `${type === "update" ? "Update" : "Announcement"} marked as read`
+    );
+  };
 
   const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" }
-    return new Date(dateString).toLocaleDateString(undefined, options)
-  }
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  // const { data, isLoading } = useGetAnnouncements();
 
   return (
     <div className="container mx-auto py-8 px-4">
       <Toaster position="top-right" />
 
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-800">University Information Center</h1>
-        <p className="text-slate-500 mt-1">Stay informed with the latest updates and announcements</p>
+        <h1 className="text-3xl font-bold text-slate-800">
+          University Information Center
+        </h1>
+        <p className="text-slate-500 mt-1">
+          Stay informed with the latest updates and announcements
+        </p>
       </div>
 
       <Tabs defaultValue="updates" className="w-full">
@@ -54,11 +70,16 @@ export default function UpdatesAndAnnouncements() {
 
         <TabsContent value="updates" className="space-y-4">
           {updates.map((update) => (
-            <Card key={update.id} className="overflow-hidden transition-all hover:shadow-sm">
+            <Card
+              key={update.id}
+              className="overflow-hidden transition-all hover:shadow-sm"
+            >
               <CardHeader className="py-2">
                 <div className="flex justify-between items-start">
                   <div>
-                    <CardTitle className="text-lg font-semibold text-slate-800">{update.title}</CardTitle>
+                    <CardTitle className="text-lg font-semibold text-slate-800">
+                      {update.title}
+                    </CardTitle>
                     <CardDescription className="text-sm mt-0">
                       {formatDate(update.date)} • {update.department}
                     </CardDescription>
@@ -68,10 +89,10 @@ export default function UpdatesAndAnnouncements() {
                       update.category === "Academic"
                         ? "default"
                         : update.category === "Administrative"
-                          ? "secondary"
-                          : update.category === "Event"
-                            ? "outline"
-                            : "destructive"
+                        ? "secondary"
+                        : update.category === "Event"
+                        ? "outline"
+                        : "destructive"
                     }
                   >
                     {update.category}
@@ -79,9 +100,10 @@ export default function UpdatesAndAnnouncements() {
                 </div>
               </CardHeader>
               <CardContent className="py-0">
-                <p className="text-sm text-slate-600 line-clamp-2">{update.content}</p>
+                <p className="text-sm text-slate-600 line-clamp-2">
+                  {update.content}
+                </p>
               </CardContent>
-             
             </Card>
           ))}
         </TabsContent>
@@ -90,7 +112,11 @@ export default function UpdatesAndAnnouncements() {
           {announcements.map((announcement) => (
             <Card
               key={announcement.id}
-              className={`overflow-hidden transition-all hover:shadow-sm ${pinnedAnnouncements.includes(announcement.id) ? "border border-red-600" : ""}`}
+              className={`overflow-hidden transition-all hover:shadow-sm ${
+                pinnedAnnouncements.includes(announcement.id)
+                  ? "border border-red-600"
+                  : ""
+              }`}
             >
               <CardHeader className="py-0">
                 <div className="flex justify-between items-start">
@@ -111,21 +137,25 @@ export default function UpdatesAndAnnouncements() {
                     variant="ghost"
                     size="icon"
                     onClick={() => togglePin(announcement.id)}
-                    className={pinnedAnnouncements.includes(announcement.id) ? "text-primary" : ""}
+                    className={
+                      pinnedAnnouncements.includes(announcement.id)
+                        ? "text-primary"
+                        : ""
+                    }
                   >
                     <Pin className="h-4 w-4" />
                   </Button>
                 </div>
               </CardHeader>
               <CardContent className="py-0">
-                <p className="text-sm text-slate-600 line-clamp-2">{announcement.content}</p>
+                <p className="text-sm text-slate-600 line-clamp-2">
+                  {announcement.content}
+                </p>
               </CardContent>
-             
             </Card>
           ))}
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
-
