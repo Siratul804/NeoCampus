@@ -1,37 +1,42 @@
+import { createServer } from "node:http";
+import next from "next";
 import { Server } from "socket.io";
-import { createServer } from "http";
-import express from "express";
 
-const app = express();
-const server = createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
-});
+const dev = process.env.NODE_ENV !== "production";
+const hostname = "localhost";
+const port = 3000;
+// when using middleware ⁠ hostname ⁠ and ⁠ port ⁠ must be provided below
+const app = next({ dev, hostname, port });
+const handler = app.getRequestHandler();
 
-io.on("connection", (socket) => {
-  console.log(`New client connected: ${socket.id}`);
+app.prepare().then(() => {
+  const httpServer = createServer(handler);
 
-  socket.on("triggerNotification", () => {
-    const message = "You have a new notification!";
-    console.log("Emitting notification:", message);
-    io.emit("notification", message);
+  const io = new Server(httpServer);
+
+  io.on("connection", (socket) => {
+    console.log("a user connected");
+
+    socket.on("disconnect", () => {
+      console.log("user disconnected");
+    });
+
+    socket.on("triggerMenuAdded", () => {
+      console.log("Received triggerMenuAdded event"); // Ensure this logs when the button is clicked
+      io.emit("menuAdded", "New menu added");
+    });
+    socket.on("triggerMenuAdded", () => {
+      console.log("Received triggerMenuAdded event"); // Debug log
+      io.emit("menuAdded", "New menu added");
+    });
   });
 
-  socket.on("triggerMenuAdded", () => {
-    const message = "A new menu has been added. Check it out!";
-    console.log("Emitting menuAdded:", message);
-    io.emit("menuAdded", message);
-  });
-
-  socket.on("disconnect", () => {
-    console.log(`Client disconnected: ${socket.id}`);
-  });
-});
-
-const PORT = process.env.PORT || 3001;
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  httpServer
+    .once("error", (err) => {
+      console.error(err);
+      process.exit(1);
+    })
+    .listen(port, () => {
+      console.log(`> Ready on http://${hostname}:${port}`);
+    });
 });

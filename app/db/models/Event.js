@@ -6,8 +6,7 @@ const eventSchema = new mongoose.Schema(
     description: { type: String },
     date: { type: Date, required: true },
     time: { type: String, required: true },
-    location: { type: String, required: true },
-    reminders: [{ type: Date }], // Array of reminder timestamps
+    club: { type: String, required: true },
   },
   { timestamps: true }
 );
