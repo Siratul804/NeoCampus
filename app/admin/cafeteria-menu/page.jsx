@@ -343,7 +343,7 @@ export default function CafeteriaMenuPage() {
             </SheetDescription>
           </SheetHeader>
 
-          <div className="space-y-4">
+          <div className="space-y-4 px-5">
             {preorders.length === 0 ? (
               <div className="text-center py-8 text-muted-foreground">
                 No preorders available
