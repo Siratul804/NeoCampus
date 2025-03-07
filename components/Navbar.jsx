@@ -89,7 +89,7 @@ export function Navbar() {
 
             {/* Dropdown Content */}
             {showDropdown && (
-              <div className="absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-md overflow-hidden z-50">
+              <div className="absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-md overflow-hidden z-50 border">
                 <div className="p-3">
                   <p className="text-sm text-gray-700 font-medium">
                     {notification || "No new notifications"}

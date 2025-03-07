@@ -3,7 +3,13 @@
 import { useUser } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
 import { addDays, subDays, format } from "date-fns";
-import { CalendarIcon, Clock, BookOpen, AlertTriangle } from "lucide-react";
+import {
+  CalendarIcon,
+  Clock,
+  BookOpen,
+  AlertTriangle,
+  Loader2,
+} from "lucide-react";
 
 import {
   Card,
@@ -122,7 +128,15 @@ export default function Dashboard() {
     fetchEventData();
   }, [revalidate]);
 
-  if (loading) return <>Loading.....</>;
+  if (loading)
+    return (
+      <>
+        {" "}
+        <div className="flex justify-center items-center h-64">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      </>
+    );
 
   return (
     <div className="container mx-auto p-4">

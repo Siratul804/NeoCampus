@@ -23,11 +23,11 @@ app.prepare().then(() => {
 
     socket.on("triggerMenuAdded", () => {
       console.log("Received triggerMenuAdded event"); // Ensure this logs when the button is clicked
-      io.emit("menuAdded", "New menu added");
+      io.emit("menuAdded", "A new menu has been added. Check it out!");
     });
     socket.on("triggerMenuAdded", () => {
       console.log("Received triggerMenuAdded event"); // Debug log
-      io.emit("menuAdded", "New menu added");
+      io.emit("menuAdded", "A new menu has been added. Check it out!");
     });
   });
 
