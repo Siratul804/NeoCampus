@@ -1,0 +1,36 @@
+// Reduced faculty data
+export const facultyData = [
+  {
+    id: 1,
+    name: "Dr. Sarah Johnson",
+    email: "sjohnson@school.edu",
+    phone: "(555) 123-4567",
+    department: "CSE",
+    courses: ["Physics 101", "Advanced Physics"],
+    officeHours: "Monday, Wednesday: 2:00 PM - 4:00 PM",
+    office: "Science Building, Room 305",
+    avatar: "/placeholder.svg?height=80&width=80",
+  },
+  {
+    id: 2,
+    name: "Prof. Michael Chen",
+    email: "mchen@school.edu",
+    phone: "(555) 234-5678",
+    department: "EEE",
+    courses: ["Chemistry 101", "Organic Chemistry"],
+    officeHours: "Tuesday, Thursday: 1:00 PM - 3:00 PM",
+    office: "Science Building, Room 210",
+    avatar: "/placeholder.svg?height=80&width=80",
+  },
+  {
+     id: 3,
+     name: "Sultana Rupa",
+     email: "rupa@school.edu",
+     phone: "(555) 234-5678",
+     department: "English",
+     courses: ["Chemistry 101", "Organic Chemistry"],
+     officeHours: "Tuesday, Thursday: 1:00 PM - 3:00 PM",
+     office: "Science Building, Room 210",
+     avatar: "/placeholder.svg?height=80&width=80",
+   },
+];
