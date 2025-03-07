@@ -25,10 +25,11 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`${inter.className}`}>
-          <div className="flex h-screen bg-[#e5e7eb]">
+        <body className={` ${inter.className} `}>
+          <div className="flex h-screen bg-[#e5e7eb] w-full px-0">
             <AdminSidebar />
-            <div className="flex flex-col flex-1 overflow-hidden">
+
+            <div className="flex flex-col flex-1 overflow-hidden px-0">
               <main className="flex-1 overflow-y-auto px-4 py-0 ">
                 {children}
               </main>
