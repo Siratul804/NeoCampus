@@ -1,6 +1,6 @@
 # NeoCampus
 
-A Platform For Digitalization Campus System // need to edit
+Your Campus Companion: The All-in-One Student App
 
 By Team The Mavericks - [@Siratul804](https://github.com/Siratul804), [@AsTeriaa09](https://github.com/AsTeriaa09), [@atik64](https://github.com/atik65), [mdyhakash](https://github.com/mdyhakash)
 <div align="center">
@@ -24,16 +24,89 @@ By Team The Mavericks - [@Siratul804](https://github.com/Siratul804), [@AsTeriaa
 
 ## 🌟 Overview
 
-**NeoCampus** A Platform For Digitalization Campus System // need to edit
+**NeoCampus** NeoCampus : The All-in-One App
 
 ## 🚀 Features
 
 ### 📍 Dashboard (`/dashboard`)
 
-![alt text](/public/Dashboard.png)
+![alt text](/public/dash.png)
 
 
-- Dashboard
+- Role based todo list
+- Upcoming events
+- Calender
+
+
+### 📍 Cafeteria (`/Cafeteria-Menu`)
+
+![alt text](/public/menu.png)
+
+
+- Menu list
+- Add to cart
+- Place order
+
+
+### 📍 Transportation (`/transportation`)
+
+![alt text](/public/trans.png)
+
+
+- Realtime bus track
+- Track bus update
+- Map
+
+
+### 📍 Faculty-Schedules (`/Faculty-Schedules`)
+
+![alt text](/public/faculty.png)
+
+
+- Semester based routine
+- Calender
+
+### 📍 Faculty-Schedules (`/events-clubs`)
+
+![alt text](/public/e1.png)
+- Set event time
+![alt text](/public/e2.png)
+- Clubs 
+![alt text](/public/e3.png)
+-AI Event Recommender
+
+
+### 📍 Announcements (`/updates-announcements`)
+
+![alt text](/public/not.png)
+
+- Realtime notifications
+
+
+### 📍 Navigation (`/Navigation`)
+
+![alt text](/public/map.png)
+
+- Map
+- Ar Mode
+
+
+### 📍 Navigation (`/Neo-AI`)
+
+![alt text](/public/chat.png)
+
+- Ai Chatbot
+
+
+
+
+
+
+
+
+
+
+
 
 
 
