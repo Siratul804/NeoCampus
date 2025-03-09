@@ -70,8 +70,10 @@ By Team The Mavericks - [@Siratul804](https://github.com/Siratul804), [@AsTeriaa
 
 ![alt text](/public/e1.png)
 - Set event time
+
 ![alt text](/public/e2.png)
 - Clubs 
+
 ![alt text](/public/e3.png)
 -AI Event Recommender
 
