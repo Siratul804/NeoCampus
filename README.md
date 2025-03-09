@@ -1,8 +1,9 @@
 # NeoCampus
 
-A Platform For Digitalization Campus System // need to edit
+Your Campus Companion: The All-in-One Student App
 
 By Team The Mavericks - [@Siratul804](https://github.com/Siratul804), [@AsTeriaa09](https://github.com/AsTeriaa09), [@atik64](https://github.com/atik65), [mdyhakash](https://github.com/mdyhakash)
+
 <div align="center">
 
 <br />
@@ -11,7 +12,7 @@ By Team The Mavericks - [@Siratul804](https://github.com/Siratul804), [@AsTeriaa
 
 ### 🎯 A Platform For Digitalization Campus System // need to edit
 
-[Report Bug](https://github.com/Siratul804/NeoHire/issues) · [Request Feature](https://github.com/Siratul804/NeoHire/issues) · [Pull Request](https://github.com/Siratul804/NeoFetchHackathon/pulls) 
+[Report Bug](https://github.com/Siratul804/NeoHire/issues) · [Request Feature](https://github.com/Siratul804/NeoHire/issues) · [Pull Request](https://github.com/Siratul804/NeoFetchHackathon/pulls)
 
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react)](https://reactjs.org/)
@@ -24,19 +25,69 @@ By Team The Mavericks - [@Siratul804](https://github.com/Siratul804), [@AsTeriaa
 
 ## 🌟 Overview
 
-**NeoCampus** A Platform For Digitalization Campus System // need to edit
+**NeoCampus** NeoCampus : The All-in-One App
 
 ## 🚀 Features
 
 ### 📍 Dashboard (`/dashboard`)
 
-![alt text](/public/Dashboard.png)
+![alt text](/public/dash.png)
 
+- Role based todo list
+- Upcoming events
+- Calender
 
-- Dashboard
+### 📍 Cafeteria (`/Cafeteria-Menu`)
 
+![alt text](/public/menu.png)
 
+- Menu list
+- Add to cart
+- Place order
 
+### 📍 Transportation (`/transportation`)
+
+![alt text](/public/trans.png)
+
+- Realtime bus track
+- Track bus update
+- Map
+
+### 📍 Faculty-Schedules (`/Faculty-Schedules`)
+
+![alt text](/public/faculty.png)
+
+- Semester based routine
+- Calender
+
+### 📍 Faculty-Schedules (`/events-clubs`)
+
+![alt text](/public/e1.png)
+
+- Set event time
+  ![alt text](/public/e2.png)
+- Clubs
+  ![alt text](/public/e3.png)
+  -AI Event Recommender
+
+### 📍 Announcements (`/updates-announcements`)
+
+![alt text](/public/not.png)
+
+- Realtime notifications
+
+### 📍 Navigation (`/Navigation`)
+
+![alt text](/public/map.png)
+
+- Map
+- Ar Mode
+
+### 📍 Navigation (`/Neo-AI`)
+
+![alt text](/public/chat.png)
+
+- Ai Chatbot
 
 ## 🚀 Installation Guide
 
@@ -61,21 +112,21 @@ npm install
 
 2. **Setup Environment**
 
-``` env
+```env
 # database
-MONGO_PASS=oIVOympTPF0RoMLp
-MONGO=mongodb+srv://23201128:oIVOympTPF0RoMLp@neofetch.nq8ec.mongodb.net/?retryWrites=true&w=majority&appName=NeoFetch
+MONGO_PASS=
+MONGO=
 
 # auth
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_Y2xlYXItbGFyay01NC5jbGVyay5hY2NvdW50cy5kZXYk
-CLERK_SECRET_KEY=sk_test_JomSl6FHkCn6HNZ2m5rygO6Y7NnRERHxUWFCxYtskS
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
 NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
 NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
 NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
 NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
 
 # ai models
-GROQ_API_KEY=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
+GROQ_API_KEY=
 
 Start project : node server.mjs
 ```
@@ -121,5 +172,3 @@ MIT License - see [LICENSE](LICENSE)
 ---
 
 Created by Team The Mavericks
-
-
