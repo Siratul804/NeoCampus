@@ -9,7 +9,7 @@ By Team The Mavericks - [@Siratul804](https://github.com/Siratul804), [@AsTeriaa
 
   <img src="/public/neoCam.png" alt="ide" width="500"/>
 
-### 🎯 A Platform For Digitalization Campus System // need to edit
+### 🎯 NeoCampus: The All-in-One App
 
 [Report Bug](https://github.com/Siratul804/NeoHire/issues) · [Request Feature](https://github.com/Siratul804/NeoHire/issues) · [Pull Request](https://github.com/Siratul804/NeoFetchHackathon/pulls) 
 
