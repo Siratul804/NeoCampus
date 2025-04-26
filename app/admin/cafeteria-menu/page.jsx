@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { socket } from "@/socket";
 import {
   Dialog,
   DialogContent,
@@ -131,7 +130,6 @@ export default function CafeteriaMenuPage() {
       }
 
       if (response.ok) {
-        socket.emit("triggerMenuAdded");
         console.log("added successfully");
       }
 

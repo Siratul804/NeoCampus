@@ -3,12 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "name": "neofetch",
-    "version": "0.1.0",
-    "type": "module",
-    "scripts": {
-      "dev": "node server.js"
-    }
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.12.1",
@@ -48,7 +46,6 @@
     "react-day-picker": "^8.10.1",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
-    "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
     "sonner": "^2.0.1",
     "tailwind-merge": "^3.0.2",

@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Bell, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { socket } from "@/socket";
+
 import { SignedIn, UserButton, useUser } from "@clerk/nextjs";
 
 export function Navbar() {
@@ -13,18 +13,6 @@ export function Navbar() {
   const [notification, setNotification] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
-
-  // Handle incoming socket notifications
-  useEffect(() => {
-    const handleNotification = (message) => {
-      setNotification(message);
-    };
-
-    socket.on("menuAdded", handleNotification);
-    return () => {
-      socket.off("menuAdded", handleNotification);
-    };
-  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {
