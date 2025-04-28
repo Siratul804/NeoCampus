@@ -93,7 +93,7 @@ By Team The Mavericks - [@Siratul804](https://github.com/Siratul804), [@AsTeriaa
 - Ar Mode
 
 
-### 📍 Navigation (`/Neo-AI`)
+### 📍 NeoCampus AI (`/Neo-AI`)
 
 ![alt text](/public/chat.png)
 
